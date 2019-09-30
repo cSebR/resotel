@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Resotel"
-        mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Views="clr-namespace:Resotel.Views"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -13,8 +13,48 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" WindowState="Maximized">
     <Grid>
-        <Button Content="Button"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.ColumnSpan="3" BorderThickness="0 0 0 1">
+            <StackPanel Orientation="Horizontal">
+                <Button HorizontalAlignment="Left" Margin="2" Command="{Binding CommandNewClient}">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<fa:FontAwesomeIcon SolidIcon="UserPlus" Foreground="Black" Height="18"/>-->
+                        <TextBlock Margin="5 0 0 0" Text="Nouveau Client"/>
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Left" Margin="2" Command="{Binding CommandNewFrere}">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<fa:FontAwesomeIcon SolidIcon="UserPlus" Foreground="Black" Height="18"/>-->
+                        <TextBlock Margin="5 0 0 0" Text="Nouveau Frère"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListContacts}" IsSynchronizedWithCurrentItem="True">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding PrenomNom}"  />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <GridSplitter Grid.Column="1" Grid.Row="1" Width="3" HorizontalAlignment="Stretch" />
+
+        <Views:UCReservation Grid.Column="2" Grid.Row="1" Height="Auto" Width="Auto" DataContext="{Binding ContactSelected}"/>
+
     </Grid>
 </Window>
