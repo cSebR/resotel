@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Resotel.Entities
 {
-    public class Payment
+    public class Bedroom
     {
         public int Id { get; set; }
-        public string Date { get; set; }
-        public string Mode { get; set; }
-        public Invoice Invoice { get; set; }
+        public int Number { get; set; }
+        public string State { get; set; }
+        public TypeBedroom TypeBedroom { get; set; }
     }
 }

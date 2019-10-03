@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resotel.ViewModels.VMReservation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace Resotel
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new ReservationsViewModel(new DateTime());
+        }
+
+        private void ReservationCalendar_SelectedDatesChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (reservationCalendar.SelectedDate.HasValue)
+            {
+                Console.WriteLine(reservationCalendar.SelectedDate.Value.ToString("dd/MM/yyyy"));
+                DateTime date = reservationCalendar.SelectedDate.Value;
+                //this.DataContext = new ReservationsViewModel(date);
+            }
         }
     }
 }

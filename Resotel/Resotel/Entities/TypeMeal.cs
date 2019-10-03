@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Resotel.Entities
 {
-    public class Payment
+    public class TypeMeal
     {
         public int Id { get; set; }
-        public string Date { get; set; }
-        public string Mode { get; set; }
-        public Invoice Invoice { get; set; }
+        public string Name { get; set; }
+        public string Price { get; set; }
     }
 }
