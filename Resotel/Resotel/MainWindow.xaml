@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Resotel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Views="clr-namespace:Resotel.Views"
+        xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
+        xmlns:VMReservation="clr-namespace:Resotel.ViewModels.VMReservation"
+        xmlns:VMEntretien="clr-namespace:Resotel.ViewModels.VMEntretien"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -13,48 +16,51 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" WindowState="Maximized">
+        Title="MainWindow" WindowState="Maximized" Height="1080" Width="1920">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type VMReservation:UCReservationViewModel}">
+            <Views:UCReservation/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMEntretien:UCEntretienViewModel}">
+            <Views:UCEntretien/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VMReservation:UCListReservationViewModel}">
+            <Views:UCListReservation/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMReservation:UCAddReservationViewModel}">
+            <Views:UCAddReservation/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel />
+    </Window.DataContext>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.ColumnSpan="3" BorderThickness="0 0 0 1">
-            <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Left" Margin="2" Command="{Binding CommandNewClient}">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<fa:FontAwesomeIcon SolidIcon="UserPlus" Foreground="Black" Height="18"/>-->
-                        <TextBlock Margin="5 0 0 0" Text="Nouveau Client"/>
-                    </StackPanel>
-                </Button>
-                <Button HorizontalAlignment="Left" Margin="2" Command="{Binding CommandNewFrere}">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<fa:FontAwesomeIcon SolidIcon="UserPlus" Foreground="Black" Height="18"/>-->
-                        <TextBlock Margin="5 0 0 0" Text="Nouveau Frère"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Border>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_Réservation">
+                <MenuItem Header="_Liste réservation" Command="{Binding ShowListReservation}" />
+                <MenuItem Header="_Ajouter réservation" Command="{Binding ShowAddReservation}" />
+                <MenuItem Header="_Voir planning" Command="{Binding ShowReservationPlanning}" />
+                <MenuItem Header="_Rechercher réservation"/>
+            </MenuItem>
+            <MenuItem Header="_Restauration">
+                <MenuItem Header="_Voir planning"/>
+                <MenuItem Header="_Ajouter un repas"/>
+            </MenuItem>
+            <MenuItem Header="_Entretien">
+                <MenuItem Header="_Voir états des chambres" Command="{Binding ShowEntretien}"/>
+                <MenuItem Header="_Rechercher chambre"/>
+            </MenuItem>
+        </Menu>
 
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListContacts}" IsSynchronizedWithCurrentItem="True">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding PrenomNom}"  />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <GridSplitter Grid.Column="1" Grid.Row="1" Width="3" HorizontalAlignment="Stretch" />
-
-        <Views:UCReservation Grid.Column="2" Grid.Row="1" Height="Auto" Width="Auto" DataContext="{Binding ContactSelected}"/>
+        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}" />
 
     </Grid>
 </Window>

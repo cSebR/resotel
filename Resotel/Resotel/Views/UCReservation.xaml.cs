@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resotel.ViewModels.VMReservation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace Resotel.Views
         public UCReservation()
         {
             InitializeComponent();
+            ReservationsViewModel resaVM = new ReservationsViewModel();
+            reservationCalendar.SelectionMode = CalendarSelectionMode.MultipleRange;
+            foreach (ReservationViewModel rvm in resaVM.ListReservations)
+            {
+                reservationCalendar.SelectedDates.AddRange(rvm.Reservation.DateStart, rvm.Reservation.DateEnd);
+            }
+            this.DataContext = resaVM;
+        }
+
+        private void ReservationCalendar_SelectedDatesChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (reservationCalendar.SelectedDate.HasValue)
+            {
+                Console.WriteLine(reservationCalendar.SelectedDate.Value.ToString("dd/MM/yyyy"));
+                string date = reservationCalendar.SelectedDate.Value.ToString("yyyy-MM-dd");
+                this.DataContext = new ReservationsViewModel(date);
+            }
         }
     }
 }

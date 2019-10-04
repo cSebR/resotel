@@ -35,14 +35,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.6.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=8.0.17.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.17\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,11 +81,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\Bedroom.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\Meal.cs" />
+    <Compile Include="Entities\Options.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\Reservation.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\TypeBedroom.cs" />
+    <Compile Include="Entities\TypeMeal.cs" />
+    <Compile Include="Entities\Users.cs" />
+    <Compile Include="Services\ReservationService.cs" />
+    <Compile Include="ViewModels\EventArgs.cs" />
+    <Compile Include="ViewModels\EventRaiser.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\VMEntretien\UCEntretienViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\ReservationsViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\ReservationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\VMReservation\UCAddReservationViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCListReservationViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCReservationViewModel.cs" />
+    <Compile Include="Views\UCAddReservation.xaml.cs">
+      <DependentUpon>UCAddReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCEntretien.xaml.cs">
+      <DependentUpon>UCEntretien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCListReservation.xaml.cs">
+      <DependentUpon>UCListReservation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UCReservation.xaml.cs">
       <DependentUpon>UCReservation.xaml</DependentUpon>
     </Compile>
@@ -81,6 +127,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\UCAddReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCEntretien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCListReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UCReservation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,12 +172,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\Client\" />
-    <Folder Include="ViewModels\Entretien\" />
-    <Folder Include="ViewModels\Reservation\" />
-    <Folder Include="ViewModels\Restauration\" />
+    <Folder Include="ViewModels\VMClient\" />
+    <Folder Include="ViewModels\VMRestauration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

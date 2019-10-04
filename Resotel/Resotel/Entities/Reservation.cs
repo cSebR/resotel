@@ -9,11 +9,13 @@ namespace Resotel.Entities
     public class Reservation
     {
         public int Id { get; set; }
-        public string Name { get; set; }
         public string Number { get; set; }
-        public string DateStart { get; set; }
-        public string DateEnd { get; set; }
+        public DateTime Date { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
         public Customer Customer { get; set; }
-        public Invoice Invoice { get; set; }
+        public List<Bedroom> ListBedroom { get; set; }
+        public List<Options> ListOptions { get; set; }
+        public List<Meal> ListMeal { get; set; }
     }
 }
