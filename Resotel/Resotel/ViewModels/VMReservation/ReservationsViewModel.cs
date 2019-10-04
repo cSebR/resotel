@@ -39,7 +39,7 @@ namespace Resotel.ViewModels.VMReservation
             observer.CurrentChanged += Observer_CurrentChanged;
         }
 
-        public ReservationsViewModel(DateTime date)
+        public ReservationsViewModel(string date)
         {
             List<Reservation> listReservation = ReservationService.Instance.ChargerReservationsByDate(date);
 

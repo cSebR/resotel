@@ -7,17 +7,53 @@ using System.Windows.Input;
 
 namespace Resotel.ViewModels
 {
+    public class RelayCommand<T> : ICommand
+    {
+        private readonly Predicate<T> _canExecute;
+        private readonly Action<T> _execute;
+
+        public RelayCommand(Action<T> execute)
+           : this(execute, null)
+        {
+            _execute = execute;
+        }
+
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        {
+            if (execute == null)
+            {
+                throw new ArgumentNullException("execute");
+            }
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute((T)parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute((T)parameter);
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+    }
+
     public class RelayCommand : ICommand
     {
-        private Action<object> execute;
-
-        private Predicate<object> canExecute;
-
-        private event EventHandler CanExecuteChangedInternal;
+        private readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
 
         public RelayCommand(Action<object> execute)
-            : this(execute, DefaultCanExecute)
+           : this(execute, null)
         {
+            _execute = execute;
         }
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
@@ -26,60 +62,41 @@ namespace Resotel.ViewModels
             {
                 throw new ArgumentNullException("execute");
             }
-
-            if (canExecute == null)
-            {
-                throw new ArgumentNullException("canExecute");
-            }
-
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
+
+        // Ensures WPF commanding infrastructure asks all RelayCommand objects whether their
+        // associated views should be enabled whenever a command is invoked 
         public event EventHandler CanExecuteChanged
         {
             add
             {
                 CommandManager.RequerySuggested += value;
-                this.CanExecuteChangedInternal += value;
+                CanExecuteChangedInternal += value;
             }
-
             remove
             {
                 CommandManager.RequerySuggested -= value;
-                this.CanExecuteChangedInternal -= value;
+                CanExecuteChangedInternal -= value;
             }
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return this.canExecute != null && this.canExecute(parameter);
-        }
+        private event EventHandler CanExecuteChangedInternal;
 
-        public void Execute(object parameter)
+        public void RaiseCanExecuteChanged()
         {
-            this.execute(parameter);
-        }
-
-        public void OnCanExecuteChanged()
-        {
-            EventHandler handler = this.CanExecuteChangedInternal;
-            if (handler != null)
-            {
-                //DispatcherHelper.BeginInvokeOnUIThread(() => handler.Invoke(this, EventArgs.Empty));
-                handler.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public void Destroy()
-        {
-            this.canExecute = _ => false;
-            this.execute = _ => { return; };
-        }
-
-        private static bool DefaultCanExecute(object parameter)
-        {
-            return true;
+            CanExecuteChangedInternal.Raise(this);
         }
     }
 }

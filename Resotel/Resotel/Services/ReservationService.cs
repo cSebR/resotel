@@ -76,12 +76,35 @@ namespace Resotel.Services
             {
                 return list;
             }
-            string req = "SELECT  ";
+            string req = "SELECT reservation.id, reservation.number, reservation.date, reservation.dateStart, reservation.dateEnd, customer.idCustomer, customer.lastname, customer.firstname, customer.address, customer.cityCode, customer.city, customer.email, customer.phone FROM reservation, customer WHERE reservation.id_Customer = customer.idCustomer";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
             while (reader.Read())
             {
-                //TODO
+                Reservation reservation = new Reservation
+                {
+                    Id = reader.GetInt32("id"),
+                    Number = reader.GetString("number"),
+                    Date = reader.GetDateTime("date"),
+                    DateStart = reader.GetDateTime("dateStart"),
+                    DateEnd = reader.GetDateTime("dateEnd"),
+                    Customer = new Customer
+                    {
+                        Id = reader.GetInt32("idCustomer"),
+                        Lastname = reader.GetString("lastname"),
+                        Firstname = reader.GetString("firstname"),
+                        Address = reader.GetString("address"),
+                        CityCode = reader.GetString("cityCode"),
+                        City = reader.GetString("city"),
+                        Email = reader.GetString("email"),
+                        Phone = reader.GetString("phone")
+                    }
+                };
+                reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
+                reservation.ListOptions = ChargerOptionsByReservation(reservation.Id);
+                reservation.ListMeal = ChargerMealByReservation(reservation.Id);
+
+                list.Add(reservation);
             }
 
             CloseConnection();
@@ -89,7 +112,7 @@ namespace Resotel.Services
             return list;
         }
 
-        public List<Reservation> ChargerReservationsByDate(DateTime date)
+        public List<Reservation> ChargerReservationsByDate(string date)
         {
             List<Reservation> list = new List<Reservation>();
 
@@ -97,7 +120,7 @@ namespace Resotel.Services
             {
                 return list;
             }
-            string req = "SELECT reservation.id, reservation.number, reservation.date, reservation.dateStart, reservation.dateEnd, customer.idCustomer, customer.lastname, customer.firstname, customer.address, customer.cityCode, customer.city, customer.email, customer.phone FROM reservation, customer WHERE reservation.id_Customer = customer.idCustomer";
+            string req = "SELECT reservation.id, reservation.number, reservation.date, reservation.dateStart, reservation.dateEnd, customer.idCustomer, customer.lastname, customer.firstname, customer.address, customer.cityCode, customer.city, customer.email, customer.phone FROM reservation, customer WHERE reservation.dateStart <= '" + date + "' AND reservation.dateEnd >= '" + date + "' AND reservation.id_Customer = customer.idCustomer";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
             while (reader.Read())

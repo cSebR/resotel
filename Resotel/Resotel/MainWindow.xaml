@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Resotel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Views="clr-namespace:Resotel.Views"
+        xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
+        xmlns:VMReservation="clr-namespace:Resotel.ViewModels.VMReservation"
+        xmlns:VMEntretien="clr-namespace:Resotel.ViewModels.VMEntretien"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -14,51 +17,50 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" WindowState="Maximized" Height="1080" Width="1920">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type VMReservation:UCReservationViewModel}">
+            <Views:UCReservation/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMEntretien:UCEntretienViewModel}">
+            <Views:UCEntretien/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VMReservation:UCListReservationViewModel}">
+            <Views:UCListReservation/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMReservation:UCAddReservationViewModel}">
+            <Views:UCAddReservation/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel />
+    </Window.DataContext>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.ColumnSpan="4">
+        <Menu Grid.Row="0">
             <MenuItem Header="_Réservation">
-                <MenuItem Header="_Ajouter réservation"/>
-                <MenuItem Header="_Voir planning des réservations"/>
+                <MenuItem Header="_Liste réservation" Command="{Binding ShowListReservation}" />
+                <MenuItem Header="_Ajouter réservation" Command="{Binding ShowAddReservation}" />
+                <MenuItem Header="_Voir planning" Command="{Binding ShowReservationPlanning}" />
                 <MenuItem Header="_Rechercher réservation"/>
             </MenuItem>
             <MenuItem Header="_Restauration">
-                <MenuItem Header="_Voir planning des repas"/>
+                <MenuItem Header="_Voir planning"/>
                 <MenuItem Header="_Ajouter un repas"/>
             </MenuItem>
             <MenuItem Header="_Entretien">
-                <MenuItem Header="_Voir états des chambres"/>
+                <MenuItem Header="_Voir états des chambres" Command="{Binding ShowEntretien}"/>
                 <MenuItem Header="_Rechercher chambre"/>
             </MenuItem>
         </Menu>
 
-        <Viewbox Grid.Column="0" Grid.Row="1" MinWidth="278" MaxWidth="400" VerticalAlignment="Top">
-            <Calendar x:Name="reservationCalendar" SelectedDatesChanged="ReservationCalendar_SelectedDatesChange" />
-        </Viewbox>
-
-        <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListReservations}" IsSynchronizedWithCurrentItem="True">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name }" FontSize="20"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <GridSplitter Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Background="{DynamicResource BrushBouton}"/>
-
-        <Views:UCReservation Grid.Column="3" Grid.Row="1" Height="Auto" Width="Auto" DataContext="{Binding ReservationSelected}"/>
+        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}" />
 
     </Grid>
 </Window>

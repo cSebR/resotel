@@ -1,8 +1,5 @@
-﻿using Resotel.ViewModels;
-using Resotel.ViewModels.VMReservation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Resotel
+namespace Resotel.Views
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour UCAddReservation.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCAddReservation : UserControl
     {
-        public MainWindow()
+        public UCAddReservation()
         {
             InitializeComponent();
         }
