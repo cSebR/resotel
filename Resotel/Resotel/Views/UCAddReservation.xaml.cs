@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resotel.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace Resotel.Views
         public UCAddReservation()
         {
             InitializeComponent();
+            this.DataContext = ReservationService.Instance.ChargerAllBedroom();
+            this.DataContext = ReservationService.Instance.ChargerAllOptions();
         }
     }
 }

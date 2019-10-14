@@ -25,6 +25,30 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
+        private ICommand commandSavereservation;
+        public ICommand CommandSaveReservation
+        {
+            get
+            {
+                if (commandSavereservation == null)
+                {
+                    commandSavereservation = new RelayCommand((object sender) =>
+                    {
+                        ReservationService.Instance.SaveReservation(Reservation);
+                    },
+                    (object sender) =>
+                    {
+                        if (string.IsNullOrWhiteSpace(Reservation.Number))
+                        {
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+                return commandSavereservation;
+            }
+        }
+
         public event EventHandler DelReservation;
         private ICommand commandDel;
         public ICommand CommandDel

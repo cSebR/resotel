@@ -97,6 +97,10 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\VMEntretien\UCEntretienViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\BedroomsViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\BedroomViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\OptionsViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\OptionViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

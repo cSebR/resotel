@@ -156,6 +156,64 @@ namespace Resotel.Services
             return list;
         }
 
+        public List<Bedroom> ChargerAllBedroom()
+        {
+            List<Bedroom> list = new List<Bedroom>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom WHERE bedroom.id_TypeBedroom = typebedroom.id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
+            while (reader2.Read())
+            {
+                Bedroom bedroom = new Bedroom
+                {
+                    Id = reader2.GetInt32("id"),
+                    Number = reader2.GetInt32("number"),
+                    State = reader2.GetString("state"),
+                    TypeBedroom = new TypeBedroom
+                    {
+                        Id = reader2.GetInt32("typeId"),
+                        Name = reader2.GetString("name"),
+                        Price = reader2.GetFloat("price")
+                    }
+                };
+
+                list.Add(bedroom);
+            }
+            return list;
+        }
+
+        public List<Options> ChargerAllOptions()
+        {
+            List<Options> list = new List<Options>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT options.id, options.name, options.price FROM options;
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Options option = new Options
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("name"),
+                    Price = reader.GetFloat("price")
+                };
+
+                list.Add(option);
+            }
+            return list;
+        }
+
         private List<Bedroom> ChargerBedroomByReservation(int id)
         {
             List<Bedroom> list = new List<Bedroom>();
@@ -239,7 +297,7 @@ namespace Resotel.Services
             return list;
         }
 
-        public int SaveContact(Reservation reservation)
+        public int SaveReservation(Reservation reservation)
         {
             if (OpenConnection() == false) return 0;
 

@@ -8,6 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
         <Grid.Resources>
+            <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                 <Setter Property="FontSize" Value="20"/>
             </Style>
@@ -114,7 +118,7 @@
 
         <StackPanel Grid.Row="4" Grid.Column="2">
             <TextBlock Text="Numéro :" />
-            <TextBox Text="{Binding ReservationSelected.Reservation.Bedroom.Number}" />
+            <ComboBox x:Name="BedroomNumberComboBox" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="3">
@@ -124,17 +128,14 @@
 
         <StackPanel Grid.Row="5" Grid.Column="2">
             <TextBlock Text="Options" Style="{StaticResource Bold}"  />
+            <ComboBox />
         </StackPanel>
-
-        <ComboBox Grid.Column="0" Grid.Row="6" />
 
         <StackPanel Grid.Row="5" Grid.Column="3">
             <TextBlock Text="Repas" Style="{StaticResource Bold}"  />
+            <ComboBox />
         </StackPanel>
-        
-        <ComboBox Grid.Column="1" Grid.Row="6" />
-
-        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="3" Command="{Binding CommandSave}" Margin="10"/>
+        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="3" Command="{Binding CommandSaveReservation}" Margin="10"/>
 
     </Grid>
 </UserControl>
