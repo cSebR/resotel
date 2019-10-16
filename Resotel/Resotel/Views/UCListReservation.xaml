@@ -141,13 +141,18 @@
             </StackPanel>
 
             <StackPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">
-                <TextBlock Text="Chambre" Style="{StaticResource Bold}"  />
+                <TextBlock Text="Chambre :" Style="{StaticResource Bold}"  />
             </StackPanel>
 
-            <StackPanel Grid.Row="5" Grid.Column="2">
-                <TextBlock Text="Numéro :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Bedroom.Number}" />
-            </StackPanel>
+            <ListBox Grid.Column="2" Grid.Row="7" ItemsSource="{Binding ReservationSelected.Reservation.ListBedroom}" IsSynchronizedWithCurrentItem="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Bedroom.Name }"  />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
             <StackPanel Grid.Row="5" Grid.Column="3">
                 <TextBlock Text="Etat :" />
@@ -162,7 +167,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Options.Name }"  />
+                            <TextBlock Text="{Binding Option.Name }"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -100,8 +100,8 @@ namespace Resotel.Services
                         Phone = reader.GetString("phone")
                     }
                 };
-                reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
-                reservation.ListOptions = ChargerOptionsByReservation(reservation.Id);
+                //reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
+                reservation.ListOptions = ChargerOptionByReservation(reservation.Id);
                 reservation.ListMeal = ChargerMealByReservation(reservation.Id);
 
                 list.Add(reservation);
@@ -144,8 +144,8 @@ namespace Resotel.Services
                         Phone = reader.GetString("phone")
                     }
                 };
-                reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
-                reservation.ListOptions = ChargerOptionsByReservation(reservation.Id);
+                //reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
+                reservation.ListOptions = ChargerOptionByReservation(reservation.Id);
                 reservation.ListMeal = ChargerMealByReservation(reservation.Id);
 
                 list.Add(reservation);
@@ -188,21 +188,21 @@ namespace Resotel.Services
             return list;
         }
 
-        public List<Options> ChargerAllOptions()
+        public List<Option> ChargerAllOptions()
         {
-            List<Options> list = new List<Options>();
+            List<Option> list = new List<Option>();
 
             if (OpenConnection() == false)
             {
                 return list;
             }
 
-            string req = "SELECT options.id, options.name, options.price FROM options;
+            string req = "SELECT options.id, options.name, options.price FROM options";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
             while (reader.Read())
             {
-                Options option = new Options
+                Option option = new Option
                 {
                     Id = reader.GetInt32("id"),
                     Name = reader.GetString("name"),
@@ -214,7 +214,7 @@ namespace Resotel.Services
             return list;
         }
 
-        private List<Bedroom> ChargerBedroomByReservation(int id)
+        public List<Bedroom> ChargerBedroomByReservation(int id)
         {
             List<Bedroom> list = new List<Bedroom>();
 
@@ -246,9 +246,9 @@ namespace Resotel.Services
             return list;
         }
 
-        private List<Options> ChargerOptionsByReservation(int id)
+        private List<Option> ChargerOptionByReservation(int id)
         {
-            List<Options> list = new List<Options>();
+            List<Option> list = new List<Option>();
 
             if (OpenConnection() == false)
             {
@@ -260,7 +260,7 @@ namespace Resotel.Services
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
             while (reader.Read())
             {
-                Options option = new Options
+                Option option = new Option
                 {
                     Id = reader.GetInt32("id"),
                     Name = reader.GetString("name"),

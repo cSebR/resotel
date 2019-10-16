@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resotel.ViewModels.VMReservation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,8 @@ namespace Resotel.Entities
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public Customer Customer { get; set; }
-        public List<Bedroom> ListBedroom { get; set; }
-        public List<Options> ListOptions { get; set; }
+        public List<BedroomViewModel> ListBedroom { get; set; }
+        public List<Option> ListOptions { get; set; }
         public List<Meal> ListMeal { get; set; }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Resotel.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Resotel.ViewModels.VMReservation;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,9 +23,10 @@ namespace Resotel.Views
     {
         public UCAddReservation()
         {
-            InitializeComponent();
-            this.DataContext = ReservationService.Instance.ChargerAllBedroom();
-            this.DataContext = ReservationService.Instance.ChargerAllOptions();
+            InitializeComponent(); 
+            BedroomComboBox.DataContext = new BedroomsViewModel();
+            //this.DataContext = new OptionsViewModel();    
+            OptionComboBox.DataContext = new OptionsViewModel();
         }
     }
 }

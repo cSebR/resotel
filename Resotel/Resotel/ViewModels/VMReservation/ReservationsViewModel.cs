@@ -31,6 +31,10 @@ namespace Resotel.ViewModels.VMReservation
             ListReservations = new ObservableCollection<ReservationViewModel>();
             foreach (Reservation r in listReservation)
             {
+                //TEST
+                List<Bedroom> listBedrooms = ReservationService.Instance.ChargerBedroomByReservation(r.Id);
+                //FIN TEST
+
                 addReservationToList(r);
             }
 

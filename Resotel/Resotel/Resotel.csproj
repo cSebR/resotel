@@ -85,7 +85,7 @@
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\Meal.cs" />
-    <Compile Include="Entities\Options.cs" />
+    <Compile Include="Entities\Option.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\Reservation.cs" />
     <Compile Include="Entities\TypeBedroom.cs" />

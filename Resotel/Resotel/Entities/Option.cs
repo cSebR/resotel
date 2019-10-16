@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Resotel.Entities
 {
-    public class Options
+    public class Option
     {
         public int Id { get; set; }
         public string Name { get; set; }
