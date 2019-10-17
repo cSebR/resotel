@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Resotel.ViewModels.VMReservation
 {
-    class OptionViewModel
+    public class OptionViewModel
     {
         public Option Option { get; }
         public OptionViewModel(Option option)

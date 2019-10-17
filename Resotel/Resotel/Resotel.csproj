@@ -99,6 +99,8 @@
     <Compile Include="ViewModels\VMEntretien\UCEntretienViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\BedroomsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\BedroomViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\MealsViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\MealViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationsViewModel.cs" />

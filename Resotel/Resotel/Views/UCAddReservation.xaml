@@ -116,25 +116,39 @@
             <DatePicker />
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2">
             <TextBlock Text="Chambre" Style="{StaticResource Bold}"  />
-        </StackPanel>
-
-        <StackPanel Grid.Row="4" Grid.Column="2">
-            <TextBlock Text="Numéro :" />
-            <ComboBox x:Name="BedroomComboBox" ItemsSource="{Binding ListBedrooms}" DisplayMemberPath="Name" SelectedItem="{Binding BedroomSelected}" IsSynchronizedWithCurrentItem="True" />
+            <ListBox Name="listBoxBedroom" ItemsSource="{Binding ListBedrooms}" MaxHeight="200" Background="Azure">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Name="CheckBoxZone" Content="{Binding Name}" Tag="{Binding Bedroom.Id}" Margin="0,5,0,0"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="2">
             <TextBlock Text="Options" Style="{StaticResource Bold}"  />
-            <ComboBox x:Name="OptionComboBox" ItemsSource="{Binding ListOptions}" DisplayMemberPath="Name" SelectedItem="{Binding OptionSelected}" IsSynchronizedWithCurrentItem="True" />
+            <ListBox Name="listBoxOptions" ItemsSource="{Binding ListOptions}" MaxHeight="200" Background="Azure">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Name="CheckBoxZone" Content="{Binding Name}" Tag="{Binding Option.Id}" Margin="0,5,0,0"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="3">
             <TextBlock Text="Repas" Style="{StaticResource Bold}"  />
-            <ComboBox x:Name="MealComboBox" />
+            <ListBox Name="listBoxMeal" ItemsSource="{Binding ListMeals}" MaxHeight="200" Background="Azure">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Name="CheckBoxZone" Content="{Binding Name}" Tag="{Binding Meal.Id}" Margin="0,5,0,0"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="3" Command="{Binding CommandSaveReservation}" Margin="10"/>
 
+        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="3" Command="{Binding CommandSaveReservation}" Margin="10"/>
     </Grid>
 </UserControl>

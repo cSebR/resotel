@@ -100,9 +100,6 @@ namespace Resotel.Services
                         Phone = reader.GetString("phone")
                     }
                 };
-                //reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
-                reservation.ListOptions = ChargerOptionByReservation(reservation.Id);
-                reservation.ListMeal = ChargerMealByReservation(reservation.Id);
 
                 list.Add(reservation);
             }
@@ -144,9 +141,6 @@ namespace Resotel.Services
                         Phone = reader.GetString("phone")
                     }
                 };
-                //reservation.ListBedroom = ChargerBedroomByReservation(reservation.Id);
-                reservation.ListOptions = ChargerOptionByReservation(reservation.Id);
-                reservation.ListMeal = ChargerMealByReservation(reservation.Id);
 
                 list.Add(reservation);
             }
@@ -165,7 +159,39 @@ namespace Resotel.Services
                 return list;
             }
 
-            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom WHERE bedroom.id_TypeBedroom = typebedroom.id";
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
+            while (reader2.Read())
+            {
+                Bedroom bedroom = new Bedroom
+                {
+                    Id = reader2.GetInt32("id"),
+                    Number = reader2.GetInt32("number"),
+                    State = reader2.GetString("state"),
+                    TypeBedroom = new TypeBedroom
+                    {
+                        Id = reader2.GetInt32("typeId"),
+                        Name = reader2.GetString("name"),
+                        Price = reader2.GetFloat("price")
+                    }
+                };
+
+                list.Add(bedroom);
+            }
+            return list;
+        }
+
+        public List<Bedroom> ChargerAllAvailableBedroom()
+        {
+            List<Bedroom> list = new List<Bedroom>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id LEFT JOIN link_reservationbedroomoptions ON bedroom.id = link_reservationbedroomoptions.id_Bedroom LEFT JOIN reservation ON link_reservationbedroomoptions.id_Reservation = reservation.id WHERE link_reservationbedroomoptions.id_Bedroom IS NULL OR NOW() NOT BETWEEN reservation.dateStart AND reservation.dateEnd ORDER BY bedroom.id ASC";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
             while (reader2.Read())
@@ -214,6 +240,32 @@ namespace Resotel.Services
             return list;
         }
 
+        public List<Meal> ChargerAllMeals()
+        {
+            List<Meal> list = new List<Meal>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT meal.id, meal.name, meal.price FROM meal";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Meal meal = new Meal
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("name"),
+                    Price = reader.GetFloat("price")
+                };
+
+                list.Add(meal);
+            }
+            return list;
+        }
+
         public List<Bedroom> ChargerBedroomByReservation(int id)
         {
             List<Bedroom> list = new List<Bedroom>();
@@ -246,7 +298,7 @@ namespace Resotel.Services
             return list;
         }
 
-        private List<Option> ChargerOptionByReservation(int id)
+        public List<Option> ChargerOptionByReservation(int id)
         {
             List<Option> list = new List<Option>();
 
@@ -272,7 +324,7 @@ namespace Resotel.Services
             return list;
         }
 
-        private List<Meal> ChargerMealByReservation(int id)
+        public List<Meal> ChargerMealByReservation(int id)
         {
             List<Meal> list = new List<Meal>();
 
@@ -293,6 +345,8 @@ namespace Resotel.Services
                     Price = reader.GetFloat("price"),
                     Date = reader.GetDateTime("date")
                 };
+
+                list.Add(meal);
             }
             return list;
         }

@@ -24,9 +24,9 @@ namespace Resotel.Views
         public UCAddReservation()
         {
             InitializeComponent(); 
-            BedroomComboBox.DataContext = new BedroomsViewModel();
-            //this.DataContext = new OptionsViewModel();    
-            OptionComboBox.DataContext = new OptionsViewModel();
+            listBoxBedroom.DataContext = new BedroomsViewModel("Available");
+            listBoxMeal.DataContext = new MealsViewModel();
+            listBoxOptions.DataContext = new OptionsViewModel();
         }
     }
 }
