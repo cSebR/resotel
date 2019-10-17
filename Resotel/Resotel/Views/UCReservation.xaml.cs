@@ -30,7 +30,6 @@ namespace Resotel.Views
             {
                 reservationCalendar.SelectedDates.AddRange(rvm.Reservation.DateStart, rvm.Reservation.DateEnd);
             }
-            //this.DataContext = resaVM;
         }
 
         private void ReservationCalendar_SelectedDatesChange(object sender, SelectionChangedEventArgs e)

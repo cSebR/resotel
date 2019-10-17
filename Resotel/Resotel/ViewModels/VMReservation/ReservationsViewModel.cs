@@ -26,36 +26,13 @@ namespace Resotel.ViewModels.VMReservation
 
         public ReservationsViewModel()
         {
-            List<Reservation> listReservation = ReservationService.Instance.ChargerReservations();
-
-            ListReservations = new ObservableCollection<ReservationViewModel>();
-            foreach (Reservation r in listReservation)
-            {
-                //TEST
-                List<Bedroom> listBedrooms = ReservationService.Instance.ChargerBedroomByReservation(r.Id);
-                //FIN TEST
-
-                addReservationToList(r);
-            }
-
-            observer = CollectionViewSource.GetDefaultView(ListReservations);
-            observer.MoveCurrentToFirst();
-            observer.CurrentChanged += Observer_CurrentChanged;
+            addReservationToList(ReservationService.Instance.ChargerReservations());
+            
         }
 
         public ReservationsViewModel(string date)
         {
-            List<Reservation> listReservation = ReservationService.Instance.ChargerReservationsByDate(date);
-
-            ListReservations = new ObservableCollection<ReservationViewModel>();
-            foreach (Reservation r in listReservation)
-            {
-                addReservationToList(r);
-            }
-
-            observer = CollectionViewSource.GetDefaultView(ListReservations);
-            observer.MoveCurrentToFirst();
-            observer.CurrentChanged += Observer_CurrentChanged;
+            addReservationToList(ReservationService.Instance.ChargerReservationsByDate(date));
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)
@@ -69,11 +46,28 @@ namespace Resotel.ViewModels.VMReservation
             observer.MoveCurrentToFirst();
         }
 
-        public void addReservationToList(Reservation resa)
+        public void addReservationToList(List<Reservation> listReservations)
         {
-            ReservationViewModel reservation = new ReservationViewModel(resa);
-            reservation.DelReservation += deleteReservation;
-            ListReservations.Add(reservation);
+            ListReservations = new ObservableCollection<ReservationViewModel>();
+            foreach (Reservation r in listReservations)
+            {
+                BedroomsViewModel bvm = new BedroomsViewModel(r.Id);
+                r.ListBedroom = bvm.ListBedrooms;
+
+                OptionsViewModel ovm = new OptionsViewModel(r.Id);
+                r.ListOptions = ovm.ListOptions;
+
+                MealsViewModel mvm = new MealsViewModel(r.Id);
+                r.ListMeal = mvm.ListMeals;
+
+                ReservationViewModel reservation = new ReservationViewModel(r);
+                reservation.DelReservation += deleteReservation;
+                ListReservations.Add(reservation);
+            }
+
+            observer = CollectionViewSource.GetDefaultView(ListReservations);
+            observer.MoveCurrentToFirst();
+            observer.CurrentChanged += Observer_CurrentChanged;
         }
     }
 }

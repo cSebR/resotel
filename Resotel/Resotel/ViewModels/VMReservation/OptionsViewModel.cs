@@ -30,17 +30,12 @@ namespace Resotel.ViewModels.VMReservation
 
         public OptionsViewModel()
         {
-            List<Option> listOptions = ReservationService.Instance.ChargerAllOptions();
+            addOptionsToList(ReservationService.Instance.ChargerAllOptions());
+        }
 
-            ListOptions = new ObservableCollection<OptionViewModel>();
-            foreach (Option o in listOptions)
-            {
-                addOptionsToList(o);
-            }
-
-            observer = CollectionViewSource.GetDefaultView(ListOptions);
-            observer.MoveCurrentToFirst();
-            observer.CurrentChanged += Observer_CurrentChanged;
+        public OptionsViewModel(int id)
+        {
+            addOptionsToList(ReservationService.Instance.ChargerOptionByReservation(id));
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)
@@ -48,10 +43,18 @@ namespace Resotel.ViewModels.VMReservation
             OnPropertyChanged("OptionSelected");
         }
 
-        public void addOptionsToList(Option op)
+        public void addOptionsToList(List<Option> listOptions)
         {
-            OptionViewModel option = new OptionViewModel(op);
-            ListOptions.Add(option);
+            ListOptions = new ObservableCollection<OptionViewModel>();
+            foreach (Option o in listOptions)
+            {
+                OptionViewModel option = new OptionViewModel(o);
+                ListOptions.Add(option);
+            }
+
+            observer = CollectionViewSource.GetDefaultView(ListOptions);
+            observer.MoveCurrentToFirst();
+            observer.CurrentChanged += Observer_CurrentChanged;
         }
     }
 }

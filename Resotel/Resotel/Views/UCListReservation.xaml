@@ -96,7 +96,7 @@
                 <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Firstname}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="3" Grid.Column="0">
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <TextBlock Text="Adresse :" />
                 <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Address}" />
             </StackPanel>
@@ -144,30 +144,25 @@
                 <TextBlock Text="Chambre :" Style="{StaticResource Bold}"  />
             </StackPanel>
 
-            <ListBox Grid.Column="2" Grid.Row="7" ItemsSource="{Binding ReservationSelected.Reservation.ListBedroom}" IsSynchronizedWithCurrentItem="True">
+            <ListBox Grid.Row="5" Grid.Column="2" ItemsSource="{Binding ReservationSelected.Reservation.ListBedroom}" IsSynchronizedWithCurrentItem="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Bedroom.Name }"  />
+                            <TextBlock Text="{Binding Name }"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Grid.Row="5" Grid.Column="3">
-                <TextBlock Text="Etat :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Bedroom.State}" />
-            </StackPanel>
-
             <StackPanel Grid.Row="6" Grid.Column="2">
                 <TextBlock Text="Options" Style="{StaticResource Bold}"  />
             </StackPanel>
 
-            <ListBox Grid.Column="2" Grid.Row="7" ItemsSource="{Binding ReservationSelected.Reservation.ListOptions}" IsSynchronizedWithCurrentItem="True">
+            <ListBox Grid.Row="7" Grid.Column="2" ItemsSource="{Binding ReservationSelected.Reservation.ListOptions}" IsSynchronizedWithCurrentItem="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Option.Name }"  />
+                            <TextBlock Text="{Binding Name }"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -177,17 +172,18 @@
                 <TextBlock Text="Repas" Style="{StaticResource Bold}"  />
             </StackPanel>
 
-            <ListBox Grid.Column="3" Grid.Row="7" ItemsSource="{Binding ReservationSelected.Reservation.ListMeal}" IsSynchronizedWithCurrentItem="True">
+            <ListBox Grid.Row="7" Grid.Column="3" ItemsSource="{Binding ReservationSelected.Reservation.ListMeal}" IsSynchronizedWithCurrentItem="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Meal.Name }"  />
+                            <TextBlock Text="{Binding NameDate }"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
             <Button Content="Supprimer" Grid.Row="8" Grid.Column="2" Command="{Binding CommandDel}" Margin="10"/>
+            <Button Content="Modifier" Grid.Row="8" Grid.Column="3" Command="{Binding CommandUpdate}" Margin="10"/>
         </Grid>
     </Grid>
 </UserControl>

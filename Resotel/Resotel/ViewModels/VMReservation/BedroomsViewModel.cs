@@ -28,19 +28,17 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
-        public BedroomsViewModel()
+        public BedroomsViewModel(string query)
         {
-            List<Bedroom> listBedrooms = ReservationService.Instance.ChargerAllBedroom();
+            if (query == "All")
+                addBedroomToList(ReservationService.Instance.ChargerAllBedroom());
+            else if (query == "Available")
+                addBedroomToList(ReservationService.Instance.ChargerAllAvailableBedroom());
+        }
 
-            ListBedrooms = new ObservableCollection<BedroomViewModel>();
-            foreach (Bedroom b in listBedrooms)
-            {
-                addBedroomToList(b);
-            }
-
-            observer = CollectionViewSource.GetDefaultView(ListBedrooms);
-            observer.MoveCurrentToFirst();
-            observer.CurrentChanged += Observer_CurrentChanged;
+        public BedroomsViewModel(int id)
+        {
+            addBedroomToList(ReservationService.Instance.ChargerBedroomByReservation(id));
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)
@@ -48,10 +46,18 @@ namespace Resotel.ViewModels.VMReservation
             OnPropertyChanged("BedroomSelected");
         }
 
-        public void addBedroomToList(Bedroom bed)
+        public void addBedroomToList(List<Bedroom> listBedrooms)
         {
-            BedroomViewModel bedroom = new BedroomViewModel(bed);
-            ListBedrooms.Add(bedroom);
+            ListBedrooms = new ObservableCollection<BedroomViewModel>();
+            foreach (Bedroom b in listBedrooms)
+            {
+                BedroomViewModel bedroom = new BedroomViewModel(b);
+                ListBedrooms.Add(bedroom);
+            }
+
+            observer = CollectionViewSource.GetDefaultView(ListBedrooms);
+            observer.MoveCurrentToFirst();
+            observer.CurrentChanged += Observer_CurrentChanged;
         }
     }
 }
