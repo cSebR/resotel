@@ -23,10 +23,16 @@ namespace Resotel.Views
     {
         public UCAddReservation()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             listBoxBedroom.DataContext = new BedroomsViewModel("Available");
             listBoxMeal.DataContext = new MealsViewModel();
+            mealComboBox.DataContext = new MealsViewModel();
             listBoxOptions.DataContext = new OptionsViewModel();
+        }
+
+        private void AddMealToList(object sender, RoutedEventArgs e)
+        {
+            listBoxMeal.Items.Add(mealDatePicker.SelectedDate.Value.ToString("dd/MM/yyyy") + " - " + mealComboBox.SelectedValue.ToString());
         }
     }
 }
