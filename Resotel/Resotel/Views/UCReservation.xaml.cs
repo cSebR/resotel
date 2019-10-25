@@ -25,18 +25,18 @@ namespace Resotel.Views
         {
             InitializeComponent();
             ReservationsViewModel resaVM = new ReservationsViewModel();
-            reservationCalendar.SelectionMode = CalendarSelectionMode.MultipleRange;
-            foreach (ReservationViewModel rvm in resaVM.ListReservations)
-            {
-                reservationCalendar.SelectedDates.AddRange(rvm.Reservation.DateStart, rvm.Reservation.DateEnd);
-            }
+            reservationCalendar.SelectedDate = DateTime.Now;
+            //reservationCalendar.SelectionMode = CalendarSelectionMode.MultipleRange;
+            //foreach (ReservationViewModel rvm in resaVM.ListReservations)
+            //{
+            //    reservationCalendar.SelectedDates.AddRange(rvm.Reservation.DateStart, rvm.Reservation.DateEnd);
+            //}
         }
 
         private void ReservationCalendar_SelectedDatesChange(object sender, SelectionChangedEventArgs e)
         {
             if (reservationCalendar.SelectedDate.HasValue)
             {
-                Console.WriteLine(reservationCalendar.SelectedDate.Value.ToString("dd/MM/yyyy"));
                 string date = reservationCalendar.SelectedDate.Value.ToString("yyyy-MM-dd");
                 this.DataContext = new ReservationsViewModel(date);
             }

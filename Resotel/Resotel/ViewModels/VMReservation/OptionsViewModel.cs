@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 namespace Resotel.ViewModels.VMReservation
 {
-    class OptionsViewModel : ViewModelBase
+    public class OptionsViewModel : ViewModelBase
     {
         public ObservableCollection<OptionViewModel> ListOptions { get; set; }
         private ICollectionView observer;

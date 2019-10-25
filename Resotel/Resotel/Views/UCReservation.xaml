@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Resotel.Views">
+             xmlns:local="clr-namespace:Resotel.Views"
+             xmlns:View="clr-namespace:Resotel.Views">
     <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
@@ -41,16 +42,17 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="400" VerticalAlignment="Top">
-                <Calendar x:Name="reservationCalendar" Language="fr-FR" SelectedDatesChanged="ReservationCalendar_SelectedDatesChange">
-                    <Calendar.SelectedDates>
-                    
-                    </Calendar.SelectedDates>
 
-                </Calendar>
-            </Viewbox>
+            <Border Background="#D1D1D1">
+                <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="500" VerticalAlignment="Top" >
+                    <Calendar x:Name="reservationCalendar" Language="fr-FR" SelectedDatesChanged="ReservationCalendar_SelectedDatesChange" Background="#D1D1D1" >
+                        <Calendar.SelectedDates>
+                        </Calendar.SelectedDates>
+                    </Calendar>
+                </Viewbox>
+            </Border>
 
-            <ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding ListReservations}" IsSynchronizedWithCurrentItem="True">
+            <ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding ListReservations}" IsSynchronizedWithCurrentItem="True" Background="#E8E8E8" Foreground="#273043">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -83,7 +85,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
                 <TextBlock Text="Numéro de la réservation :" />
                 <TextBlock Text="{Binding ReservationSelected.Reservation.Number}"/>
             </StackPanel>
@@ -154,7 +156,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }"  />
+                            <TextBlock Text="{Binding Name }" FontSize="20" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -168,7 +170,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }"  />
+                            <TextBlock Text="{Binding Name }" FontSize="20" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -182,13 +184,13 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }"  />
+                            <TextBlock Text="{Binding Name }" FontSize="20" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Content="Supprimer" Grid.Row="8" Grid.Column="2" Command="{Binding CommandDel}" Margin="10"/>
+            <Button Content="Supprimer" Grid.Row="8" Grid.Column="2" Command="{Binding ReservationSelected.CommandDel}" Margin="10"/>
         </Grid>
     </Grid>
 </UserControl>

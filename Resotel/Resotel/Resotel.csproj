@@ -96,9 +96,13 @@
     <Compile Include="ViewModels\EventRaiser.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\UCLoginViewModel.cs" />
+    <Compile Include="ViewModels\UCMenuDivideViewModel.cs" />
     <Compile Include="ViewModels\VMEntretien\UCEntretienViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\BedroomsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\BedroomViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\CustomersViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\CustomerViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\MealsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\MealViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionsViewModel.cs" />
@@ -106,17 +110,31 @@
     <Compile Include="ViewModels\VMReservation\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\VMReservation\UCAddCustomerViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCAddReservationViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCListCustomerViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCReservationViewModel.cs" />
+    <Compile Include="Views\UCAddCustomer.xaml.cs">
+      <DependentUpon>UCAddCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UCAddReservation.xaml.cs">
       <DependentUpon>UCAddReservation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCEntretien.xaml.cs">
       <DependentUpon>UCEntretien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UCListCustomer.xaml.cs">
+      <DependentUpon>UCListCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UCListReservation.xaml.cs">
       <DependentUpon>UCListReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCLogin.xaml.cs">
+      <DependentUpon>UCLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCMenuDivide.xaml.cs">
+      <DependentUpon>UCMenuDivide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCReservation.xaml.cs">
       <DependentUpon>UCReservation.xaml</DependentUpon>
@@ -133,6 +151,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\UCAddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UCAddReservation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,7 +163,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UCListCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UCListReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCMenuDivide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
