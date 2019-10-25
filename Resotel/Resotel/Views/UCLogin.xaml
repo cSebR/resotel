@@ -43,27 +43,34 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="4">
+            <TextBlock Text="RESOTEL" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="100"/>
+            <TextBlock Text="Application de gestion de réservation" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="50"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBlock Text="Identifiant :" Style="{StaticResource Bold}" HorizontalAlignment="Right"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2">
+        <StackPanel Grid.Row="3" Grid.Column="2">
             <TextBox Text="{Binding Login}" MinWidth="200"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
+        <StackPanel Grid.Row="4" Grid.Column="1">
             <TextBlock Text="Mot de passe :" Style="{StaticResource Bold}" HorizontalAlignment="Right"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="2">
+        <StackPanel Grid.Row="4" Grid.Column="2">
             <PasswordBox x:Name="password" MinWidth="200"/>
         </StackPanel>
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Connexion" Command="{Binding DataContext.CommandConnect, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding ElementName=password}"/>
+        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Content="Connexion" Command="{Binding DataContext.CommandConnect, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding ElementName=password}"/>
     </Grid>
 </UserControl>
