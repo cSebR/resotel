@@ -5,6 +5,7 @@ using Resotel.Entities;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Resotel.ViewModels.VMReservation;
 
 namespace Resotel.Services
 {
@@ -179,6 +180,43 @@ namespace Resotel.Services
 
                 list.Add(bedroom);
             }
+
+            CloseConnection();
+
+            return list;
+        }
+
+        public List<Customer> ChargerAllCustomers()
+        {
+            List<Customer> list = new List<Customer>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT customer.idCustomer, customer.lastname, customer.firstname, customer.address , customer.cityCode, customer.city, customer.email, customer.phone FROM customer";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
+            while (reader2.Read())
+            {
+                Customer customer = new Customer
+                {
+                    Id = reader2.GetInt32("idCustomer"),
+                    Lastname = reader2.GetString("lastname"),
+                    Firstname = reader2.GetString("firstname"),
+                    Address = reader2.GetString("address"),
+                    CityCode = reader2.GetString("cityCode"),
+                    City = reader2.GetString("city"),
+                    Email = reader2.GetString("email"),
+                    Phone = reader2.GetString("phone")
+                };
+
+                list.Add(customer);
+            }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -211,6 +249,9 @@ namespace Resotel.Services
 
                 list.Add(bedroom);
             }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -237,6 +278,9 @@ namespace Resotel.Services
 
                 list.Add(option);
             }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -263,6 +307,9 @@ namespace Resotel.Services
 
                 list.Add(meal);
             }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -275,7 +322,7 @@ namespace Resotel.Services
                 return list;
             }
 
-            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom, link_reservationbedroomoptions WHERE link_reservationbedroomoptions.id_Reservation = " + id + " AND link_reservationbedroomoptions.id_Bedroom = bedroom.id AND bedroom.id_TypeBedroom = typebedroom.id";
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom, link_reservationbedroomoptions WHERE link_reservationbedroomoptions.id_Reservation = " + id + " AND link_reservationbedroomoptions.id_Bedroom = bedroom.id AND bedroom.id_TypeBedroom = typebedroom.id GROUP BY id_Bedroom";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
             while (reader2.Read())
@@ -295,6 +342,9 @@ namespace Resotel.Services
 
                 list.Add(bedroom);
             }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -321,6 +371,9 @@ namespace Resotel.Services
 
                 list.Add(option);
             }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -348,21 +401,75 @@ namespace Resotel.Services
 
                 list.Add(meal);
             }
+
+            CloseConnection();
+
             return list;
         }
 
-        public int SaveReservation(Reservation reservation)
+        public int SaveCustomer(Customer customer)
+        {
+            if (OpenConnection() == false) return 0;
+
+            string req;
+            if (customer.Id > 0)
+            {
+                req = "UPDATE customer SET lastname = @lastname, firstname = @firstname, address = @address, cityCode = @cityCode, city = @city, email = @email, phone = @phone WHERE idCustomer = @id";
+            }
+            else
+            {
+                req = "INSERT INTO customer (idCustomer, lastname, firstname, address, cityCode, city, email, phone) VALUES (@id, @lastname, @firstname, @address, @cityCode, @city, @email, @phone)";
+            }
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            if (customer.Id > 0)
+            {
+                mySqlCommand.Parameters.Add(new MySqlParameter("@id", customer.Id));
+            }
+            else
+            {
+                mySqlCommand.Parameters.Add(new MySqlParameter("@id", null));
+            }
+            mySqlCommand.Parameters.Add(new MySqlParameter("@lastname", customer.Lastname));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@firstname", customer.Firstname));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@address", customer.Address));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@cityCode", customer.CityCode));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@city", customer.City));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@email", customer.Email));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@phone", customer.Phone));
+
+            int res = mySqlCommand.ExecuteNonQuery();
+
+            CloseConnection();
+
+            return customer.Id;
+        }
+
+        public bool DelCustomer(Customer customer)
+        {
+            if (OpenConnection() == false) return false;
+
+            string req = "DELETE FROM customer WHERE idCustomer = @id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", customer.Id));
+            int res = mySqlCommand.ExecuteNonQuery();
+
+            CloseConnection();
+
+            return true;
+        }
+
+        public int SaveReservation(Reservation reservation, Users user)
         {
             if (OpenConnection() == false) return 0;
 
             string req;
             if (reservation.Id > 0)
             {
-                req = "UPDATE personne SET TODO";
+                req = "UPDATE personne SET TODO = TODO";
             }
             else
             {
-                req = "INSERT INTO personne (TODO) VALUES (TODO)";
+                req = "INSERT INTO reservation(id, number, date, dateStart, dateEnd, id_Customer) VALUES (@id, @number, @date, @dateStart, @dateEnd, @id_Customer)";
             }
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             if (reservation.Id > 0)
@@ -373,18 +480,94 @@ namespace Resotel.Services
             {
                 mySqlCommand.Parameters.Add(new MySqlParameter("@id", null));
             }
-            //mySqlCommand.Parameters.Add(new MySqlParameter("@nom", reservation.Nom));
-            
+            mySqlCommand.Parameters.Add(new MySqlParameter("@number", reservation.Number));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@date", reservation.Date));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@dateStart", reservation.DateStart));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@dateEnd", reservation.DateEnd));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id_Customer", reservation.Customer.Id));
+
             int res = mySqlCommand.ExecuteNonQuery();
 
+            int idReservation = (int) mySqlCommand.LastInsertedId;
+
+            foreach (MealViewModel m in reservation.ListMeal)
+            {
+                req = "INSERT INTO link_reservationmeal (id_Meal, id_Reservation, date) VALUES (@idMeal, @idReservation, @date)";
+                MySqlCommand mySqlCommand2 = new MySqlCommand(req, mySqlConnection);
+                mySqlCommand2.Parameters.Add(new MySqlParameter("@idMeal", m.Meal.Id));
+                mySqlCommand2.Parameters.Add(new MySqlParameter("@idReservation", idReservation));
+                mySqlCommand2.Parameters.Add(new MySqlParameter("@date", m.Meal.Date));
+
+                mySqlCommand2.ExecuteNonQuery();
+            }
+
+            foreach (BedroomViewModel b in reservation.ListBedroom)
+            {
+                foreach (OptionViewModel o in reservation.ListOptions)
+                {
+                    req = "INSERT INTO link_reservationbedroomoptions (id_Bedroom, id_Options, id_Reservation) VALUES (@idBedroom, @idOption, @idReservation)";
+                    MySqlCommand mySqlCommand3 = new MySqlCommand(req, mySqlConnection);
+                    mySqlCommand3.Parameters.Add(new MySqlParameter("@idBedroom", b.Bedroom.Id));
+                    mySqlCommand3.Parameters.Add(new MySqlParameter("@idOption", o.Option.Id));
+                    mySqlCommand3.Parameters.Add(new MySqlParameter("@idReservation", idReservation));
+
+                    mySqlCommand3.ExecuteNonQuery();
+                }
+            }
+
+            req = "INSERT INTO link_usersreservation (id_Reservation, id_Users) VALUES (@idReservation, @idUser)";
+            MySqlCommand mySqlCommand4 = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand4.Parameters.Add(new MySqlParameter("@idReservation", idReservation));
+            mySqlCommand4.Parameters.Add(new MySqlParameter("@idUser", user.Id));
+
+            mySqlCommand4.ExecuteNonQuery();
+
             CloseConnection();
+
             return reservation.Id;
         }
 
         public bool DelReservation(Reservation reservation)
         {
-            //TODO in database
+            if (OpenConnection() == false) return false;
+
+            string req = "DELETE FROM link_reservationmeal WHERE id_Reservation = @id;" +
+                "DELETE FROM link_reservationbedroomoptions WHERE id_Reservation = @id;" +
+                "DELETE FROM reservation WHERE id = @id;";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", reservation.Id));
+            int res = mySqlCommand.ExecuteNonQuery();
+
+            CloseConnection();
+
             return true;
+        }
+
+        public Users CheckConnect(string login, string password)
+        {
+            Users user = null;
+
+            if (OpenConnection() == false) return null;
+
+            string req = "SELECT id, lastname, firstname, login, password, role FROM users WHERE login = @login AND password = @password";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@login", login));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@password", password));
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                user = new Users
+                {
+                    Id = reader.GetInt32("id"),
+                    Lastname = reader.GetString("lastname"),
+                    Firstname = reader.GetString("firstname"),
+                    Login = reader.GetString("login"),
+                    Password = reader.GetString("password"),
+                    Role = reader.GetString("role")
+                };
+            }
+
+            return user;
         }
 
     }

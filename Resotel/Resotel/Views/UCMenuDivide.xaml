@@ -1,39 +1,17 @@
-﻿<Window x:Class="Resotel.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Resotel"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:Views="clr-namespace:Resotel.Views"
-        xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" WindowState="Maximized" Height="1080" Width="1920">
+﻿<UserControl x:Class="Resotel.Views.UCMenuDivide"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Resotel.Views"
+             xmlns:Views="clr-namespace:Resotel.Views"
+             xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
+             xmlns:VMReservation="clr-namespace:Resotel.ViewModels.VMReservation"
+             xmlns:VMEntretien="clr-namespace:Resotel.ViewModels.VMEntretien"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
 
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type ViewModels:UCMenuDivideViewModel}">
-            <Views:UCMenuDivide/>
-        </DataTemplate>
-        <DataTemplate  DataType="{x:Type ViewModels:UCLoginViewModel}">
-            <Views:UCLogin/>
-        </DataTemplate>
-    </Window.Resources>
-
-    <Window.DataContext>
-        <ViewModels:MainWindowViewModel />
-    </Window.DataContext>
-    
-    <Grid>
-        <ContentControl Content="{Binding SelectedViewModel}" />
-    </Grid>
-    
-    <!--<Window.Resources>
+    <UserControl.Resources>
         <DataTemplate DataType="{x:Type VMReservation:UCReservationViewModel}">
             <Views:UCReservation/>
         </DataTemplate>
@@ -52,11 +30,11 @@
         <DataTemplate DataType="{x:Type VMReservation:UCAddCustomerViewModel}">
             <Views:UCAddCustomer/>
         </DataTemplate>
-    </Window.Resources>
+    </UserControl.Resources>
 
-    <Window.DataContext>
-        <ViewModels:MainWindowViewModel />
-    </Window.DataContext>
+    <UserControl.DataContext>
+        <ViewModels:UCMenuDivideViewModel/>
+    </UserControl.DataContext>
 
     <Grid>
         <Grid.Resources>
@@ -64,7 +42,7 @@
                 <Setter Property="FontSize" Value="20"/>
             </Style>
         </Grid.Resources>
-                
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -88,9 +66,10 @@
                 <MenuItem Header="_Liste des clients" Command="{Binding ShowListCustomer}" />
                 <MenuItem Header="_Ajouter un client" Command="{Binding ShowAddCustomer}" />
             </MenuItem>
+            <MenuItem Header="_Deconnexion" Command="{Binding DataContext.CommandDisconnect, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWay}" Background="#721817" />
         </Menu>
 
         <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}" />
 
-    </Grid>-->
-</Window>
+    </Grid>
+</UserControl>

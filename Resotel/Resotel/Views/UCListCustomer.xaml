@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Resotel.Views.UCListCustomer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Resotel.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Height" Value="50"/>
+            </Style>
+
+            <Style TargetType="StackPanel" >
+                <Setter Property="Margin" Value="20" />
+            </Style>
+
+            <Style x:Key="Bold" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ListBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ListCustomers}" IsSynchronizedWithCurrentItem="True" Background="#E8E8E8" Foreground="#273043">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name }" FontSize="20"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Content="+ Nouveau client" Grid.Column="0" Grid.Row="1" Command="{Binding CommandNewCustomer}" Margin="2"/>
+
+            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" Background="{DynamicResource BrushBouton}"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock Text="Informations du client" Style="{StaticResource Bold}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="Nom :" />
+                <TextBox Text="{Binding CustomerSelected.LastName}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <TextBlock Text="Prénom :" />
+                <TextBox Text="{Binding CustomerSelected.FirstName}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock Text="Adresse :" />
+                <TextBox Text="{Binding CustomerSelected.Customer.Address}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="1">
+                <TextBlock Text="Code Postal :" />
+                <TextBox Text="{Binding CustomerSelected.Customer.CityCode}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="2">
+                <TextBlock Text="Ville :" />
+                <TextBox Text="{Binding CustomerSelected.Customer.City}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Grid.Column="1">
+                <TextBlock Text="Email :" />
+                <TextBox Text="{Binding CustomerSelected.Customer.Email}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Grid.Column="2">
+                <TextBlock Text="Telephone :" />
+                <TextBox Text="{Binding CustomerSelected.Customer.Phone}" />
+            </StackPanel>
+
+            <Button Content="Supprimer" Grid.Row="7" Grid.Column="1" Command="{Binding CustomerSelected.CommandDel}" Margin="10"/>
+            <Button Content="Enregistrer" Grid.Row="7" Grid.Column="2" Command="{Binding CustomerSelected.CommandSave}" Margin="10"/>
+        </Grid>
+    </Grid>
+</UserControl>

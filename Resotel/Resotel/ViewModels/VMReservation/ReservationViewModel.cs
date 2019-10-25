@@ -2,19 +2,27 @@
 using Resotel.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Resotel.ViewModels.VMReservation
 {
-    public class ReservationViewModel
+    public class ReservationViewModel : ViewModelBase
     {
         public Reservation Reservation { get; }
+        public CustomersViewModel CustomersViewModel { get; set; }
+        public MealsViewModel MealsViewModel { get; set; }
+        public BedroomsViewModel BedroomsViewModel { get; set; }
+        public OptionsViewModel OptionsViewModel { get; set; }
+        public Users UserConnected {get; set;}
         public ReservationViewModel(Reservation reservation)
         {
             Reservation = reservation;
+            UserConnected = (Users)Application.Current.Properties["UserConnected"];
         }
 
         public string Name
@@ -25,16 +33,18 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
-        private ICommand commandSavereservation;
-        public ICommand CommandSaveReservation
+        private ICommand commandSave;
+        public ICommand CommandSave
         {
             get
             {
-                if (commandSavereservation == null)
+                if (commandSave == null)
                 {
-                    commandSavereservation = new RelayCommand((object sender) =>
+                    commandSave = new RelayCommand((object sender) =>
                     {
-                        ReservationService.Instance.SaveReservation(Reservation);
+                        Reservation.Customer = CustomersViewModel.CustomerSelected.Customer;
+                        ReservationService.Instance.SaveReservation(Reservation, UserConnected);
+                        ClearFields();
                     },
                     (object sender) =>
                     {
@@ -45,7 +55,7 @@ namespace Resotel.ViewModels.VMReservation
                         return true;
                     });
                 }
-                return commandSavereservation;
+                return commandSave;
             }
         }
 
@@ -66,6 +76,18 @@ namespace Resotel.ViewModels.VMReservation
                 }
                 return commandDel;
             }
+        }
+
+        private void ClearFields()
+        {
+            Reservation.Number = "";
+            Reservation.ListBedroom.Clear();
+            Reservation.ListMeal.Clear();
+            Reservation.ListOptions.Clear();
+            Reservation.Customer = null;
+            Reservation.Date = DateTime.Now;
+            Reservation.DateStart = DateTime.Now;
+            Reservation.DateEnd = DateTime.Now;
         }
     }
 }
