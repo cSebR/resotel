@@ -60,7 +60,6 @@
             </MenuItem>
             <MenuItem Header="_Entretien">
                 <MenuItem Header="_Voir états des chambres" Command="{Binding ShowEntretien}"/>
-                <MenuItem Header="_Rechercher chambre" />
             </MenuItem>
             <MenuItem Header="_Client">
                 <MenuItem Header="_Liste des clients" Command="{Binding ShowListCustomer}" />

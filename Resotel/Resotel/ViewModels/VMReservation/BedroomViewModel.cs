@@ -22,5 +22,23 @@ namespace Resotel.ViewModels.VMReservation
                 return Bedroom.Number + " - " + Bedroom.TypeBedroom.Name + " (" + Bedroom.TypeBedroom.Price + " €) - " + Bedroom.State;
             }
         }
+        public string ListeForEntretien
+        {
+            get
+            {
+                return " " + Bedroom.Number + " ";
+            }
+        }
+        public string NameForEntretien
+        {
+            get
+            {
+                return "                    " +
+                    " " + Bedroom.Number + "                                         " +
+                    " " + Bedroom.TypeBedroom.Name + " (" + Bedroom.TypeBedroom.Price + " €)                                  " +
+                    " " + Bedroom.State;
+            }
+        }
+       
     }
 }
