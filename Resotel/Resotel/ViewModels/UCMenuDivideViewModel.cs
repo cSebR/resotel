@@ -1,5 +1,6 @@
 ﻿using Resotel.ViewModels.VMEntretien;
 using Resotel.ViewModels.VMReservation;
+using Resotel.ViewModels.VMRestauration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,10 @@ namespace Resotel.ViewModels
         public ICommand ShowListCustomer { get; set; }
         public ICommand ShowAddCustomer { get; set; }
 
+        public ICommand ShowAddRestauration { get; set; }
+
+        public ICommand ShowRestauration { get; set; }
+
         private object selectedViewModel;
 
         public object SelectedViewModel
@@ -34,6 +39,8 @@ namespace Resotel.ViewModels
             ShowEntretien = new RelayCommand(OpenUCEntretien);
             ShowListCustomer = new RelayCommand(OpenUCListCustomer);
             ShowAddCustomer = new RelayCommand(OpenUCAddCustomer);
+            ShowAddRestauration = new RelayCommand(OpenUCAddRestauration);
+            ShowRestauration = new RelayCommand(OpenUCRestauration);
             SelectedViewModel = new UCReservationViewModel();
         }
 
@@ -65,6 +72,16 @@ namespace Resotel.ViewModels
         private void OpenUCAddCustomer(object obj)
         {
             SelectedViewModel = new UCAddCustomerViewModel();
+        }
+
+        private void OpenUCAddRestauration(object obj)
+        {
+            SelectedViewModel = new UCAddRestaurationViewModel();
+        }
+
+        private void OpenUCRestauration(object obj)
+        {
+            SelectedViewModel = new UCRestaurationViewModel();
         }
     }
 }
