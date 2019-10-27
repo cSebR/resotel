@@ -33,6 +33,6 @@ namespace Resotel.Views
         {
             listBoxMeal.Items.Add(mealDatePicker.SelectedDate.Value.ToString("dd/MM/yyyy") + " - " + mealComboBox.SelectedValue.ToString());
         }
-    
+
     }
 }

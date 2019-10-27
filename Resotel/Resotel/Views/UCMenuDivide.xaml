@@ -7,8 +7,8 @@
              xmlns:Views="clr-namespace:Resotel.Views"
              xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
              xmlns:VMReservation="clr-namespace:Resotel.ViewModels.VMReservation"
-             xmlns:VMRestauration="clr-namespace:Resotel.ViewModels.VMRestauration"
              xmlns:VMEntretien="clr-namespace:Resotel.ViewModels.VMEntretien"
+             xmlns:VMRestauration="clr-namespace:Resotel.ViewModels.VMRestauration"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -31,17 +31,12 @@
         <DataTemplate DataType="{x:Type VMReservation:UCAddCustomerViewModel}">
             <Views:UCAddCustomer/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VMReservation:UCAddCustomerViewModel}">
-            <Views:UCAddCustomer/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type VMRestauration:UCRestaurationViewModel}">
-            <Views:UCRestauration/>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type VMRestauration:UCAddRestaurationViewModel}">
             <Views:UCAddRestauration/>
         </DataTemplate>
-        
-        
+        <DataTemplate DataType="{x:Type VMRestauration:UCRestaurationrViewModel}">
+            <Views:UCAddRestauration/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.DataContext>
