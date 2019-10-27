@@ -5,6 +5,7 @@ using Resotel.Entities;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Resotel.ViewModels.VMRestauration;
 
 namespace Resotel.Services
 {
@@ -38,11 +39,13 @@ namespace Resotel.Services
         {
             try
             {
-                MySqlConnectionStringBuilder csb = new MySqlConnectionStringBuilder();
-                csb.Server = "localhost";
-                csb.Database = "resotel";
-                csb.UserID = "root";
-                csb.Password = "";
+                MySqlConnectionStringBuilder csb = new MySqlConnectionStringBuilder
+                {
+                    Server = "localhost",
+                    Database = "resotel",
+                    UserID = "root",
+                    Password = ""
+                };
                 mySqlConnection = new MySqlConnection(csb.ConnectionString);
                 mySqlConnection.Open();
                 return true;
@@ -386,6 +389,8 @@ namespace Resotel.Services
             //TODO in database
             return true;
         }
+
+        
 
     }
 }

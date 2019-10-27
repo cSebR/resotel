@@ -9,6 +9,7 @@
         xmlns:ViewModels="clr-namespace:Resotel.ViewModels"
         xmlns:VMReservation="clr-namespace:Resotel.ViewModels.VMReservation"
         xmlns:VMEntretien="clr-namespace:Resotel.ViewModels.VMEntretien"
+        xmlns:VMRestauration="clr-namespace:Resotel.ViewModels.VMRestauration"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -31,6 +32,13 @@
         <DataTemplate  DataType="{x:Type VMReservation:UCAddReservationViewModel}">
             <Views:UCAddReservation/>
         </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMRestauration:UCRestaurationViewModel}">
+            <Views:UCRestauration/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type VMRestauration:UCAddRestaurationViewModel}">
+            <Views:UCAddRestauration/>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Window.DataContext>
@@ -51,8 +59,8 @@
                 <MenuItem Header="_Rechercher réservation"/>
             </MenuItem>
             <MenuItem Header="_Restauration">
-                <MenuItem Header="_Voir planning"/>
-                <MenuItem Header="_Ajouter un repas"/>
+                <MenuItem Header="_Voir planning" Command="{Binding ShowRestaurationPlanning}"/>
+                <MenuItem Header="_Ajouter un repas" Command="{Binding ShowAddRestauration}"/>
             </MenuItem>
             <MenuItem Header="_Entretien">
                 <MenuItem Header="_Voir états des chambres" Command="{Binding ShowEntretien}"/>

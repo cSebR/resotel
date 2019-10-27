@@ -84,6 +84,7 @@
     <Compile Include="Entities\Bedroom.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\LinkMeal.cs" />
     <Compile Include="Entities\Meal.cs" />
     <Compile Include="Entities\Option.cs" />
     <Compile Include="Entities\Payment.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Entities\TypeMeal.cs" />
     <Compile Include="Entities\Users.cs" />
     <Compile Include="Services\ReservationService.cs" />
+    <Compile Include="Services\RestaurationService.cs" />
     <Compile Include="ViewModels\EventArgs.cs" />
     <Compile Include="ViewModels\EventRaiser.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -109,8 +111,15 @@
     <Compile Include="ViewModels\VMReservation\UCAddReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCReservationViewModel.cs" />
+    <Compile Include="ViewModels\VMRestauration\RestaurationsViewModel.cs" />
+    <Compile Include="ViewModels\VMRestauration\RestaurationViewModel.cs" />
+    <Compile Include="ViewModels\VMRestauration\UCAddRestaurationViewModel.cs" />
+    <Compile Include="ViewModels\VMRestauration\UCRestaurationViewModel.cs" />
     <Compile Include="Views\UCAddReservation.xaml.cs">
       <DependentUpon>UCAddReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCAddRestauration.xaml.cs">
+      <DependentUpon>UCAddRestauration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCEntretien.xaml.cs">
       <DependentUpon>UCEntretien.xaml</DependentUpon>
@@ -120,6 +129,9 @@
     </Compile>
     <Compile Include="Views\UCReservation.xaml.cs">
       <DependentUpon>UCReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCRestauration.xaml.cs">
+      <DependentUpon>UCRestauration.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UCAddRestauration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UCEntretien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UCReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCRestauration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,7 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\VMClient\" />
-    <Folder Include="ViewModels\VMRestauration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
