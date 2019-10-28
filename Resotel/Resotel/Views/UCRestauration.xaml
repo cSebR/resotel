@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Resotel.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                 <Setter Property="FontSize" Value="20"/>
@@ -43,16 +43,18 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="400" VerticalAlignment="Top">
-                <Calendar x:Name="restaurationCalendar" Language="fr-FR" SelectedDatesChanged="RestaurationCalendar_SelectedDatesChange">
-                    <Calendar.SelectedDates>
 
-                    </Calendar.SelectedDates>
+            <Border Background="#D1D1D1">
+                <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="500" VerticalAlignment="Top">
+                    <Calendar x:Name="restaurationCalendar" Language="fr-FR" SelectedDatesChanged="RestaurationCalendar_SelectedDatesChange" Background="#D1D1D1">
+                        <Calendar.SelectedDates>
 
-                </Calendar>
-            </Viewbox>
+                        </Calendar.SelectedDates>
+                    </Calendar>
+                </Viewbox>
+            </Border>
 
-            <ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding ListReservations}" IsSynchronizedWithCurrentItem="True">
+            <ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding MealsViewModel.ListMeals}" IsSynchronizedWithCurrentItem="True" Background="#E8E8E8" Foreground="#273043">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -88,25 +90,25 @@
             <!-- Nombre de repas -->
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
                 <TextBlock Text="Nombre de repas" Style="{StaticResource Bold}"/>
-                <TextBlock Text="{Binding RestaurationSelected.Restauration.Id}"/>
+                <TextBlock Text="{Binding NbTotalMeal}"/>
             </StackPanel>
 
             <!-- Nombre de petit-déjeuner -->
             <StackPanel Grid.Row="3" Grid.Column="0">
                 <TextBlock Text="Nombre de petit-déjeuner : " />
-                <!--<TextBlock Text=""/>-->
+                <TextBlock Text="{Binding NbBreakfast}"/>
             </StackPanel>
 
             <!-- Nombre de déjeuner -->
             <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
                 <TextBlock Text="Nombre de déjeuner: " />
-                <!--<TextBlock Text="" />-->
+                <TextBlock Text="{Binding NbLunch}" />
             </StackPanel>
 
             <!-- Nombre de diner -->
             <StackPanel Grid.Row="5" Grid.Column="0">
                 <TextBlock Text="Nombre de diner : " />
-                <!--<TextBlock Text="{Binding}" />-->
+                <TextBlock Text="{Binding NbDinner}" />
             </StackPanel>
 
 

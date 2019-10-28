@@ -11,35 +11,35 @@ namespace Resotel.ViewModels.VMRestauration
 {
     public class RestaurationViewModel
     {
-        public LinkMeal Restauration { get; }
+        //public LinkMeal Restauration { get; set; }
 
-        public RestaurationViewModel(LinkMeal restauration)
-        {
-            Restauration = restauration;
-        }
+        //public RestaurationViewModel(LinkMeal restauration)
+        //{
+        //    Restauration = restauration;
+        //}
 
-        private ICommand commandSaverestauration;
-        public ICommand CommandSaveRestauration
-        {
-            get
-            {
-                if (commandSaverestauration == null)
-                {
-                    commandSaverestauration = new RelayCommand((object sender) =>
-                    {
-                        RestaurationService.Instance.SaveRestauration(Restauration);
-                    });
-                    /*(object sender) =>
-                    {
-                        if (string.IsNullOrWhiteSpace(Restauration.Id))
-                        {
-                            return false;
-                        }
-                        return true;
-                    });*/
-                }
-                return commandSaverestauration;
-            }
-        }
+        //private ICommand commandSaverestauration;
+        //public ICommand CommandSaveRestauration
+        //{
+        //    get
+        //    {
+        //        if (commandSaverestauration == null)
+        //        {
+        //            commandSaverestauration = new RelayCommand((object sender) =>
+        //            {
+        //                //RestaurationService.Instance.SaveRestauration(Restauration);
+        //            });
+        //            /*(object sender) =>
+        //            {
+        //                if (string.IsNullOrWhiteSpace(Restauration.Id))
+        //                {
+        //                    return false;
+        //                }
+        //                return true;
+        //            });*/
+        //        }
+        //        return commandSaverestauration;
+        //    }
+        //}
     }
 }

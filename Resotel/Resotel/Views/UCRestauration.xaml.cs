@@ -1,4 +1,5 @@
-﻿using Resotel.ViewModels.VMRestauration;
+﻿using Resotel.ViewModels.VMReservation;
+using Resotel.ViewModels.VMRestauration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,20 @@ namespace Resotel.Views
     /// </summary>
     public partial class UCRestauration : UserControl
     {
+        public UCRestaurationViewModel ucrvm;
         public UCRestauration()
         {
             InitializeComponent();
-            RestaurationsViewModel resaVM = new RestaurationsViewModel();
             restaurationCalendar.SelectedDate = DateTime.Now;
+            ucrvm = new UCRestaurationViewModel(restaurationCalendar.SelectedDate.Value.ToString("yyyy-MM-dd"));
+            this.DataContext = ucrvm;
         }
 
         private void RestaurationCalendar_SelectedDatesChange(object sender, SelectionChangedEventArgs e)
         {
             if (restaurationCalendar.SelectedDate.HasValue)
             {
-                string date = restaurationCalendar.SelectedDate.Value.ToString("yyyy-MM-dd");
-                this.DataContext = new RestaurationsViewModel(date);
+                this.DataContext = new UCRestaurationViewModel(restaurationCalendar.SelectedDate.Value.ToString("yyyy-MM-dd"));
             }
         }
     }

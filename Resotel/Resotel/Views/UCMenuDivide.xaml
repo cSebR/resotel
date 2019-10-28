@@ -34,8 +34,8 @@
         <DataTemplate DataType="{x:Type VMRestauration:UCAddRestaurationViewModel}">
             <Views:UCAddRestauration/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VMRestauration:UCRestaurationrViewModel}">
-            <Views:UCAddRestauration/>
+        <DataTemplate DataType="{x:Type VMRestauration:UCRestaurationViewModel}">
+            <Views:UCRestauration/>
         </DataTemplate>
     </UserControl.Resources>
 

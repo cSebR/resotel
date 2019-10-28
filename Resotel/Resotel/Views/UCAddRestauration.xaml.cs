@@ -1,4 +1,6 @@
-﻿using Resotel.ViewModels.VMReservation;
+﻿using Resotel.Entities;
+using Resotel.ViewModels.VMReservation;
+using Resotel.ViewModels.VMRestauration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +23,19 @@ namespace Resotel.Views
     /// </summary>
     public partial class UCAddRestauration : UserControl
     {
+        public UCAddRestaurationViewModel ucarvm;
         public UCAddRestauration()
         {
             InitializeComponent();
-            listBoxMeal.DataContext = new MealsViewModel();
-            mealComboBox.DataContext = new MealsViewModel();
-            reservComboBox.DataContext = new ReservationsViewModel();
+            mealDatePicker.SelectedDate = DateTime.Now;
+            ucarvm = new UCAddRestaurationViewModel();
+            this.DataContext = ucarvm;
         }
 
         private void AddMealToList(object sender, RoutedEventArgs e)
         {
-            listBoxMeal.Items.Add(mealDatePicker.SelectedDate.Value.ToString("dd/MM/yyyy") + " - " + mealComboBox.SelectedValue.ToString());
+            ucarvm.ListMeals.Add(ucarvm.MealsViewModel.MealSelected);
+            ucarvm.ListMeals.Last().Meal.Date = mealDatePicker.SelectedDate.Value;
         }
 
     }

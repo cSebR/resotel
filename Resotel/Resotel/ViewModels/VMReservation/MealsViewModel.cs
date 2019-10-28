@@ -38,6 +38,11 @@ namespace Resotel.ViewModels.VMReservation
             addMealsToList(ReservationService.Instance.ChargerMealByReservation(id));
         }
 
+        public MealsViewModel(string date)
+        {
+            addMealsToList(RestaurationService.Instance.ChargerRestaurationsByDate(date));
+        }
+
         private void Observer_CurrentChanged(object sender, EventArgs e)
         {
             OnPropertyChanged("OptionSelected");

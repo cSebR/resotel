@@ -10,10 +10,10 @@ namespace Resotel.Entities
 {
     public class LinkMeal
     {
-        internal ObservableCollection<RestaurationViewModel> listRestauration;
+        //internal ObservableCollection<RestaurationViewModel> listRestauration;
 
-        public int Id { get; set; }
-        public int Id_resa { get; set; }
-        public DateTime Date { get; set; }
+        //public int Id { get; set; }
+        //public int Id_resa { get; set; }
+        //public DateTime Date { get; set; }
     }
 }

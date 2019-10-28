@@ -120,7 +120,7 @@
     <Compile Include="ViewModels\VMRestauration\RestaurationsViewModel.cs" />
     <Compile Include="ViewModels\VMRestauration\RestaurationViewModel.cs" />
     <Compile Include="ViewModels\VMRestauration\UCAddRestaurationViewModel.cs" />
-    <Compile Include="ViewModels\VMRestauration\UCRestauration.cs" />
+    <Compile Include="ViewModels\VMRestauration\UCRestaurationViewModel.cs" />
     <Compile Include="Views\UCAddCustomer.xaml.cs">
       <DependentUpon>UCAddCustomer.xaml</DependentUpon>
     </Compile>

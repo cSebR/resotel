@@ -19,6 +19,7 @@ namespace Resotel.ViewModels.VMReservation
         public BedroomsViewModel BedroomsViewModel { get; set; }
         public OptionsViewModel OptionsViewModel { get; set; }
         public Users UserConnected {get; set;}
+
         public ReservationViewModel(Reservation reservation)
         {
             Reservation = reservation;

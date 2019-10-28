@@ -18,9 +18,7 @@ namespace Resotel.ViewModels
         public ICommand ShowEntretien { get; set; }
         public ICommand ShowListCustomer { get; set; }
         public ICommand ShowAddCustomer { get; set; }
-
         public ICommand ShowAddRestauration { get; set; }
-
         public ICommand ShowRestauration { get; set; }
 
         private object selectedViewModel;
