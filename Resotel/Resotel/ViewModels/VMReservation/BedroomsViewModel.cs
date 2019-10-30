@@ -34,6 +34,8 @@ namespace Resotel.ViewModels.VMReservation
                 addBedroomToList(ReservationService.Instance.ChargerAllBedroom());
             else if (query == "Available")
                 addBedroomToList(ReservationService.Instance.ChargerAllAvailableBedroom());
+            else if (query == "ToClean")
+                addBedroomToList(ReservationService.Instance.ChargerAllBedroomToClean());
         }
 
         public BedroomsViewModel(int id)

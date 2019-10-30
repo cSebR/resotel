@@ -11,6 +11,7 @@ namespace Resotel.Entities
         public int Id { get; set; }
         public int Number { get; set; }
         public string State { get; set; }
+        public DateTime DateLastClean { get; set; }
         public TypeBedroom TypeBedroom { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Resotel.Entities;
+using Resotel.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Resotel.ViewModels.VMReservation
 {
@@ -22,23 +25,23 @@ namespace Resotel.ViewModels.VMReservation
                 return Bedroom.Number + " - " + Bedroom.TypeBedroom.Name + " (" + Bedroom.TypeBedroom.Price + " €) - " + Bedroom.State;
             }
         }
-        public string ListeForEntretien
+
+        public string DateLastClean
         {
             get
             {
-                return " " + Bedroom.Number + " ";
+                return Bedroom.DateLastClean.Day + "/" + Bedroom.DateLastClean.Month + "/" + Bedroom.DateLastClean.Year;
             }
         }
-        public string NameForEntretien
+        public string RowColor
         {
             get
             {
-                return "                    " +
-                    " " + Bedroom.Number + "                                         " +
-                    " " + Bedroom.TypeBedroom.Name + " (" + Bedroom.TypeBedroom.Price + " €)                                  " +
-                    " " + Bedroom.State;
+                if (Bedroom.State == "Non nettoyé")
+                    return "#ffd6d1";
+                else
+                    return "White";
             }
         }
-       
     }
 }

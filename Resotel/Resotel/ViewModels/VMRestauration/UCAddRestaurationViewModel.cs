@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Resotel.ViewModels.VMRestauration
@@ -36,6 +37,7 @@ namespace Resotel.ViewModels.VMRestauration
                     {
                         RestaurationService.Instance.SaveRestauration(ListMeals, ReservationsViewModel.ReservationSelected.Reservation.Id);
                         ListMeals.Clear();
+                        MessageBox.Show("Les repas ont bien été ajouté !", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
                     },
                     (object sender) =>
                     {

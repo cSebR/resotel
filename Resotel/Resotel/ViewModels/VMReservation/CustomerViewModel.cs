@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Resotel.ViewModels.VMReservation
@@ -67,6 +68,7 @@ namespace Resotel.ViewModels.VMReservation
                     {
                         ReservationService.Instance.SaveCustomer(Customer);
                         ClearFields();
+                        MessageBox.Show("Le client à bien été ajouté", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
                     },
                     (object sender) =>
                     {
@@ -95,6 +97,7 @@ namespace Resotel.ViewModels.VMReservation
                         if (Customer.Id > 0)
                             ReservationService.Instance.DelCustomer(Customer);
                         DelCustomer?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show("Le client à bien été supprimé", "Message d'informationr", MessageBoxButton.OK, MessageBoxImage.Information);
                     });
                 }
                 return commandDel;

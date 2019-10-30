@@ -46,6 +46,7 @@ namespace Resotel.ViewModels.VMReservation
                         Reservation.Customer = CustomersViewModel.CustomerSelected.Customer;
                         ReservationService.Instance.SaveReservation(Reservation, UserConnected);
                         ClearFields();
+                        MessageBox.Show("La réservation a bien été ajouté !", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
                     },
                     (object sender) =>
                     {
@@ -73,6 +74,7 @@ namespace Resotel.ViewModels.VMReservation
                         if (Reservation.Id > 0)
                             ReservationService.Instance.DelReservation(Reservation);
                         DelReservation?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show("La réservation a bien été supprimé !", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
                     });
                 }
                 return commandDel;

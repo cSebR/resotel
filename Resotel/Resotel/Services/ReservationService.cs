@@ -160,7 +160,7 @@ namespace Resotel.Services
                 return list;
             }
 
-            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id";
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, bedroom.date_last_clean, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
             while (reader2.Read())
@@ -170,6 +170,7 @@ namespace Resotel.Services
                     Id = reader2.GetInt32("id"),
                     Number = reader2.GetInt32("number"),
                     State = reader2.GetString("state"),
+                    DateLastClean = reader2.GetDateTime("date_last_clean"),
                     TypeBedroom = new TypeBedroom
                     {
                         Id = reader2.GetInt32("typeId"),
@@ -229,7 +230,7 @@ namespace Resotel.Services
                 return list;
             }
 
-            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id LEFT JOIN link_reservationbedroomoptions ON bedroom.id = link_reservationbedroomoptions.id_Bedroom LEFT JOIN reservation ON link_reservationbedroomoptions.id_Reservation = reservation.id WHERE link_reservationbedroomoptions.id_Bedroom IS NULL OR NOW() NOT BETWEEN reservation.dateStart AND reservation.dateEnd ORDER BY bedroom.id ASC";
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, bedroom.date_last_clean, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id LEFT JOIN link_reservationbedroomoptions ON bedroom.id = link_reservationbedroomoptions.id_Bedroom LEFT JOIN reservation ON link_reservationbedroomoptions.id_Reservation = reservation.id WHERE link_reservationbedroomoptions.id_Bedroom IS NULL OR NOW() NOT BETWEEN reservation.dateStart AND reservation.dateEnd ORDER BY bedroom.id ASC";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
             while (reader2.Read())
@@ -239,6 +240,45 @@ namespace Resotel.Services
                     Id = reader2.GetInt32("id"),
                     Number = reader2.GetInt32("number"),
                     State = reader2.GetString("state"),
+                    DateLastClean = reader2.GetDateTime("date_last_clean"),
+                    TypeBedroom = new TypeBedroom
+                    {
+                        Id = reader2.GetInt32("typeId"),
+                        Name = reader2.GetString("name"),
+                        Price = reader2.GetFloat("price")
+                    }
+                };
+
+                list.Add(bedroom);
+            }
+
+            CloseConnection();
+
+            return list;
+        }
+
+        public List<Bedroom> ChargerAllBedroomToClean()
+        {
+            List<Bedroom> list = new List<Bedroom>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "UPDATE bedroom LEFT JOIN link_reservationbedroomoptions ON bedroom.id = link_reservationbedroomoptions.id_Bedroom LEFT JOIN reservation ON link_reservationbedroomoptions.id_Reservation = reservation.id SET bedroom.state = 'Non nettoyé' WHERE(TO_DAYS(now()) - TO_DAYS(bedroom.date_last_clean)) > 3 OR reservation.dateEnd = NOW(); " +
+
+                "SELECT bedroom.id, bedroom.number, bedroom.state, bedroom.date_last_clean, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom JOIN typebedroom ON bedroom.id_TypeBedroom = typebedroom.id WHERE bedroom.state = 'Non nettoyé' ;";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
+            while (reader2.Read())
+            {
+                Bedroom bedroom = new Bedroom
+                {
+                    Id = reader2.GetInt32("id"),
+                    Number = reader2.GetInt32("number"),
+                    State = reader2.GetString("state"),
+                    DateLastClean = reader2.GetDateTime("date_last_clean"),
                     TypeBedroom = new TypeBedroom
                     {
                         Id = reader2.GetInt32("typeId"),
@@ -322,7 +362,7 @@ namespace Resotel.Services
                 return list;
             }
 
-            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom, link_reservationbedroomoptions WHERE link_reservationbedroomoptions.id_Reservation = " + id + " AND link_reservationbedroomoptions.id_Bedroom = bedroom.id AND bedroom.id_TypeBedroom = typebedroom.id GROUP BY id_Bedroom";
+            string req = "SELECT bedroom.id, bedroom.number, bedroom.state, bedroom.date_last_clean, typebedroom.id AS typeId, typebedroom.name, typebedroom.price FROM bedroom, typebedroom, link_reservationbedroomoptions WHERE link_reservationbedroomoptions.id_Reservation = " + id + " AND link_reservationbedroomoptions.id_Bedroom = bedroom.id AND bedroom.id_TypeBedroom = typebedroom.id GROUP BY id_Bedroom";
             MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
             MySqlDataReader reader2 = mySqlCommand.ExecuteReader();
             while (reader2.Read())
@@ -332,6 +372,7 @@ namespace Resotel.Services
                     Id = reader2.GetInt32("id"),
                     Number = reader2.GetInt32("number"),
                     State = reader2.GetString("state"),
+                    DateLastClean = reader2.GetDateTime("date_last_clean"),
                     TypeBedroom = new TypeBedroom
                     {
                         Id = reader2.GetInt32("typeId"),
@@ -541,6 +582,22 @@ namespace Resotel.Services
             CloseConnection();
 
             return true;
+        }
+
+        public int ChangeBedroomStatus(Bedroom bedroom)
+        {
+            if (OpenConnection() == false) return 0;
+
+            string req = "UPDATE bedroom SET state = @state, date_last_clean = @dateLastClean WHERE id = @id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@state", bedroom.State));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@dateLastClean", bedroom.DateLastClean));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", bedroom.Id));
+            int res = mySqlCommand.ExecuteNonQuery();
+
+            CloseConnection();
+
+            return bedroom.Id;
         }
 
         public Users CheckConnect(string login, string password)
