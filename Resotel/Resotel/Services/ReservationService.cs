@@ -151,6 +151,48 @@ namespace Resotel.Services
             return list;
         }
 
+        public List<Reservation> ChargerReservationsByCustomer(int id)
+        {
+            List<Reservation> list = new List<Reservation>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+            string req = "SELECT reservation.id, reservation.number, reservation.date, reservation.dateStart, reservation.dateEnd, customer.idCustomer, customer.lastname, customer.firstname, customer.address, customer.cityCode, customer.city, customer.email, customer.phone FROM reservation JOIN customer ON reservation.id_Customer = customer.idCustomer WHERE reservation.id_Customer = @id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Reservation reservation = new Reservation
+                {
+                    Id = reader.GetInt32("id"),
+                    Number = reader.GetString("number"),
+                    Date = reader.GetDateTime("date"),
+                    DateStart = reader.GetDateTime("dateStart"),
+                    DateEnd = reader.GetDateTime("dateEnd"),
+                    Customer = new Customer
+                    {
+                        Id = reader.GetInt32("idCustomer"),
+                        Lastname = reader.GetString("lastname"),
+                        Firstname = reader.GetString("firstname"),
+                        Address = reader.GetString("address"),
+                        CityCode = reader.GetString("cityCode"),
+                        City = reader.GetString("city"),
+                        Email = reader.GetString("email"),
+                        Phone = reader.GetString("phone")
+                    }
+                };
+
+                list.Add(reservation);
+            }
+
+            CloseConnection();
+
+            return list;
+        }
+
         public List<Bedroom> ChargerAllBedroom()
         {
             List<Bedroom> list = new List<Bedroom>();
@@ -350,6 +392,18 @@ namespace Resotel.Services
 
             CloseConnection();
 
+            return list;
+        }
+
+        public List<Invoice> ChargerAllInvoices()
+        {
+            List<Invoice> list = new List<Invoice>();
+            return list;
+        }
+
+        public List<LineInvoice> ChargerLineInvoicesByInvoice(int id)
+        {
+            List<LineInvoice> list = new List<LineInvoice>();
             return list;
         }
 

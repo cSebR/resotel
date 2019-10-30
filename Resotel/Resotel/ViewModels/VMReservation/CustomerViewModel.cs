@@ -13,10 +13,12 @@ namespace Resotel.ViewModels.VMReservation
     public class CustomerViewModel : ViewModelBase
     {
         public Customer Customer { get; }
+        public ReservationsViewModel ReservationsViewModel { get; set; }
 
         public CustomerViewModel (Customer customer)
         {
             Customer = customer;
+            ReservationsViewModel = new ReservationsViewModel(customer.Id);
         }
 
         public string LastName

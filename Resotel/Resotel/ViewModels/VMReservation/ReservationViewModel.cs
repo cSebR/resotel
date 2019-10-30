@@ -34,6 +34,14 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
+        public string NameUCCustomer
+        {
+            get
+            {
+                return Reservation.Number + " - Du " + Reservation.DateStart.Day + "/" + Reservation.DateStart.Month + "/" + Reservation.DateStart.Year + " au " + Reservation.DateEnd.Day + "/" + Reservation.DateEnd.Month + "/" + Reservation.DateEnd.Year;
+            }
+        }
+
         private ICommand commandSave;
         public ICommand CommandSave
         {

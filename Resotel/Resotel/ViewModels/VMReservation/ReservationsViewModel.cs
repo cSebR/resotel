@@ -27,12 +27,15 @@ namespace Resotel.ViewModels.VMReservation
         public ReservationsViewModel()
         {
             addReservationToList(ReservationService.Instance.ChargerReservations());
-            
         }
 
         public ReservationsViewModel(string date)
         {
             addReservationToList(ReservationService.Instance.ChargerReservationsByDate(date));
+        }
+        public ReservationsViewModel(int id)
+        {
+            addReservationToList(ReservationService.Instance.ChargerReservationsByCustomer(id));
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)

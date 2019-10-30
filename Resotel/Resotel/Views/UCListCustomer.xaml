@@ -121,6 +121,19 @@
                 <TextBox Text="{Binding CustomerSelected.Customer.Phone}" />
             </StackPanel>
 
+            <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock Text="Liste des réservations :"/>
+                <ListBox ItemsSource="{Binding CustomerSelected.ReservationsViewModel.ListReservations}" IsSynchronizedWithCurrentItem="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NameUCCustomer}" FontSize="20"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
             <Button Content="Supprimer" Grid.Row="7" Grid.Column="1" Command="{Binding CustomerSelected.CommandDel}" Margin="10"/>
             <Button Content="Enregistrer" Grid.Row="7" Grid.Column="2" Command="{Binding CustomerSelected.CommandSave}" Margin="10"/>
         </Grid>

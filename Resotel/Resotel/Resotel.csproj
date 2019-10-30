@@ -84,6 +84,7 @@
     <Compile Include="Entities\Bedroom.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\LineInvoice.cs" />
     <Compile Include="Entities\LinkMeal.cs" />
     <Compile Include="Entities\Meal.cs" />
     <Compile Include="Entities\Option.cs" />
@@ -105,6 +106,10 @@
     <Compile Include="ViewModels\VMReservation\BedroomViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\CustomersViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\InvoicesViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\InvoiceViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\LineInvoicesViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\LineInvoiceViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\MealsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\MealViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionsViewModel.cs" />
@@ -113,8 +118,10 @@
     <Compile Include="ViewModels\VMReservation\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VMReservation\UCAddCustomerViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCAddInvoiceViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCAddReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListCustomerViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCListInvoiceViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCReservationViewModel.cs" />
     <Compile Include="ViewModels\VMRestauration\RestaurationsViewModel.cs" />
@@ -123,6 +130,9 @@
     <Compile Include="ViewModels\VMRestauration\UCRestaurationViewModel.cs" />
     <Compile Include="Views\UCAddCustomer.xaml.cs">
       <DependentUpon>UCAddCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCAddInvoice.xaml.cs">
+      <DependentUpon>UCAddInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCAddReservation.xaml.cs">
       <DependentUpon>UCAddReservation.xaml</DependentUpon>
@@ -135,6 +145,9 @@
     </Compile>
     <Compile Include="Views\UCListCustomer.xaml.cs">
       <DependentUpon>UCListCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCListInvoice.xaml.cs">
+      <DependentUpon>UCListInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCListReservation.xaml.cs">
       <DependentUpon>UCListReservation.xaml</DependentUpon>
@@ -167,6 +180,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UCAddInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UCAddReservation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UCListCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCListInvoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
