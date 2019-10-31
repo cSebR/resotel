@@ -9,23 +9,23 @@
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Height" Value="50"/>
@@ -72,7 +72,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="1">
             <Button Content="Ajouter repas" Click="AddMealToList" HorizontalAlignment="Left" Margin="0 10" />
-            <ListBox Name="listBoxMeal" ItemsSource="{Binding ListMeals}" MaxHeight="260" Background="Azure">
+            <ListBox Name="listBoxMeal" ItemsSource="{Binding ListMeals}" MaxHeight="200" Background="Azure">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding NameDate }" FontSize="20"/>

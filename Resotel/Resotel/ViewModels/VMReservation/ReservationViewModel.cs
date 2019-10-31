@@ -89,6 +89,26 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
+        private ICommand commandCreateInvoice;
+        public ICommand CommandCreateInvoice
+        {
+            get
+            {
+                if (commandCreateInvoice == null)
+                {
+                    commandCreateInvoice = new RelayCommand((object sender) =>
+                    {
+                        bool invoice = ReservationService.Instance.CreateInvoice(Reservation);
+                        if (invoice)
+                            MessageBox.Show("La facture a bien été créée !", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
+                        else
+                            MessageBox.Show("Une facture existe déja pour cette réservation !", "Message d'erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    });
+                }
+                return commandCreateInvoice;
+            }
+        }
+
         private void ClearFields()
         {
             Reservation.Number = "";

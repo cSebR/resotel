@@ -21,7 +21,6 @@ namespace Resotel.ViewModels
         public ICommand ShowAddRestauration { get; set; }
         public ICommand ShowRestauration { get; set; }
         public ICommand ShowListInvoice { get; set; }
-        public ICommand ShowAddInvoice { get; set; }
 
         private object selectedViewModel;
 
@@ -42,7 +41,6 @@ namespace Resotel.ViewModels
             ShowAddRestauration = new RelayCommand(OpenUCAddRestauration);
             ShowRestauration = new RelayCommand(OpenUCRestauration);
             ShowListInvoice = new RelayCommand(OpenUCListInvoice);
-            ShowAddInvoice = new RelayCommand(OpenUCAddInvoice);
             SelectedViewModel = new UCReservationViewModel();
         }
 
@@ -89,11 +87,6 @@ namespace Resotel.ViewModels
         private void OpenUCListInvoice(object obj)
         {
             SelectedViewModel = new UCListInvoiceViewModel();
-        }
-
-        private void OpenUCAddInvoice(object obj)
-        {
-            SelectedViewModel = new UCAddInvoiceViewModel();
         }
     }
 }

@@ -10,15 +10,15 @@
 
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Height" Value="50"/>
@@ -52,7 +52,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }" FontSize="20"/>
+                            <TextBlock Text="{Binding Name }" FontSize="15"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -127,7 +127,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding NameUCCustomer}" FontSize="20"/>
+                                <TextBlock Text="{Binding NameUCCustomer}" FontSize="15"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

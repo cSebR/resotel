@@ -29,19 +29,22 @@ namespace Resotel.ViewModels.VMReservation
 
         public InvoicesViewModel()
         {
-            addCustomersToList(ReservationService.Instance.ChargerAllInvoices());
+            addInvoicesToList(ReservationService.Instance.ChargerAllInvoices());
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged("CustomerSelected");
+            OnPropertyChanged("InvoiceSelected");
         }
 
-        public void addCustomersToList(List<Invoice> listInvoices)
+        public void addInvoicesToList(List<Invoice> listInvoices)
         {
             ListInvoices = new ObservableCollection<InvoiceViewModel>();
             foreach (Invoice i in listInvoices)
             {
+                LineInvoicesViewModel livm = new LineInvoicesViewModel(i.Id);
+                i.Lines = livm.ListLineInvoices;
+
                 addCustomerToList(i);
             }
             observer = CollectionViewSource.GetDefaultView(ListInvoices);
@@ -58,7 +61,7 @@ namespace Resotel.ViewModels.VMReservation
         public void addCustomerToList(Invoice i)
         {
             InvoiceViewModel invoice = new InvoiceViewModel(i);
-            invoice.DelInvoice += deleteInvoice;
+            //invoice.DelInvoice += deleteInvoice;
             ListInvoices.Add(invoice);
         }
     }

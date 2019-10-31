@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resotel.ViewModels.VMReservation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Resotel.Views
         public UCListInvoice()
         {
             InitializeComponent();
+            this.DataContext = new InvoicesViewModel();
         }
     }
 }

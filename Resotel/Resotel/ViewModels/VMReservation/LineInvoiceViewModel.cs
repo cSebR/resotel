@@ -15,5 +15,29 @@ namespace Resotel.ViewModels.VMReservation
         {
             LineInvoice = lineInvoice;
         }
+
+        public string Pht
+        {
+            get
+            {
+                return LineInvoice.Pht.ToString("0.00") + " €";
+            }
+        }
+
+        public string Tva
+        {
+            get
+            {
+                return LineInvoice.Tva.ToString("0.00") + " €";
+            }
+        }
+
+        public string Pttc
+        {
+            get
+            {
+                return LineInvoice.Pttc.ToString("0.00") + " €";
+            }
+        }
     }
 }

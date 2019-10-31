@@ -51,8 +51,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="4">
-            <TextBlock Text="RESOTEL" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="100"/>
-            <TextBlock Text="Application de gestion de réservation" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="50"/>
+            <TextBlock Text="RESOTEL" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="70"/>
+            <TextBlock Text="Application de gestion de réservation" Style="{StaticResource Bold}" HorizontalAlignment="Center" FontSize="25"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1">

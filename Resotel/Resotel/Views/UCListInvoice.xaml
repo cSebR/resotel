@@ -10,15 +10,15 @@
 
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Height" Value="50"/>
@@ -44,11 +44,11 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ListReservations}" IsSynchronizedWithCurrentItem="True" Background="#E8E8E8" Foreground="#273043">
+            <ListBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ListInvoices}" IsSynchronizedWithCurrentItem="True" Background="#E8E8E8" Foreground="#273043">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }" FontSize="20"/>
+                            <TextBlock Text="{Binding Name }" FontSize="15"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -66,20 +66,19 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                <TextBlock Text="Numéro de la réservation :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Number}"/>
+                <TextBlock Text="Numéro de la facture :" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Id}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
@@ -88,99 +87,56 @@
 
             <StackPanel Grid.Row="2" Grid.Column="0">
                 <TextBlock Text="Nom :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Lastname}" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Reservation.Customer.Lastname}" />
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.Column="1">
                 <TextBlock Text="Prénom :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Firstname}" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Reservation.Customer.Firstname}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="3" Grid.Column="0">
                 <TextBlock Text="Adresse :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Address}" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Reservation.Customer.Address}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="4" Grid.Column="0">
+            <StackPanel Grid.Row="3" Grid.Column="1">
                 <TextBlock Text="Code Postal :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.CityCode}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="4" Grid.Column="1">
-                <TextBlock Text="Ville :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.City}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="5" Grid.Column="0">
-                <TextBlock Text="Email :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Email}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="5" Grid.Column="1">
-                <TextBlock Text="Telephone :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Customer.Phone}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
-                <TextBlock Text="Détail de la réservation" Style="{StaticResource Bold}"  />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
-                <TextBlock Text="Date de la réservation :"  />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.Date}" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Reservation.Customer.CityCode}" />
             </StackPanel>
 
             <StackPanel Grid.Row="3" Grid.Column="2">
-                <TextBlock Text="Date d'arrivée :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.DateStart}" />
+                <TextBlock Text="Ville :" />
+                <TextBlock Text="{Binding InvoiceSelected.Invoice.Reservation.Customer.City}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="3" Grid.Column="3">
-                <TextBlock Text="Date de depart :" />
-                <TextBlock Text="{Binding ReservationSelected.Reservation.DateEnd}" />
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+                <TextBlock Text="Détail de la facture" Style="{StaticResource Bold}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">
-                <TextBlock Text="Chambre :" Style="{StaticResource Bold}"  />
+            <DataGrid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding InvoiceSelected.Invoice.Lines}" AutoGenerateColumns="False" FontSize="15" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Description" Binding="{Binding LineInvoice.Description}" Width="*" SortDirection="Ascending"/>
+                    <DataGridTextColumn Header="PHT" Binding="{Binding Pht}" Width="*" />
+                    <DataGridTextColumn Header="TVA" Binding="{Binding Tva}" Width="*" />
+                    <DataGridTextColumn Header="PTTC" Binding="{Binding Pttc}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="6" Grid.Column="0">
+                <TextBlock Text="TOTAL HT :" />
+                <TextBlock Text="{Binding InvoiceSelected.TotalHt}" Style="{StaticResource Bold}"  />
             </StackPanel>
 
-            <ListBox Grid.Row="5" Grid.Column="2" ItemsSource="{Binding ReservationSelected.Reservation.ListBedroom}" IsSynchronizedWithCurrentItem="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontSize="20" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <StackPanel Grid.Row="6" Grid.Column="1">
+                <TextBlock Text="TOTAL TVA :" />
+                <TextBlock Text="{Binding InvoiceSelected.TotalTva}" Style="{StaticResource Bold}"  />
+            </StackPanel>
 
             <StackPanel Grid.Row="6" Grid.Column="2">
-                <TextBlock Text="Options" Style="{StaticResource Bold}"  />
+                <TextBlock Text="TOTAL TTC :" />
+                <TextBlock Text="{Binding InvoiceSelected.TotalTtc}" Style="{StaticResource Bold}" />
             </StackPanel>
-
-            <ListBox Grid.Row="7" Grid.Column="2" ItemsSource="{Binding ReservationSelected.Reservation.ListOptions}" IsSynchronizedWithCurrentItem="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }" FontSize="20" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-            <StackPanel Grid.Row="6" Grid.Column="3">
-                <TextBlock Text="Repas" Style="{StaticResource Bold}" />
-            </StackPanel>
-
-            <ListBox Grid.Row="7" Grid.Column="3" ItemsSource="{Binding ReservationSelected.Reservation.ListMeal}" IsSynchronizedWithCurrentItem="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding NameDate }" FontSize="20" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
         </Grid>
     </Grid>
 </UserControl>

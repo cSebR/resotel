@@ -9,15 +9,15 @@
     <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Height" Value="50"/>
@@ -45,7 +45,7 @@
             </Grid.ColumnDefinitions>
 
             <Border Background="#D1D1D1">
-                <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="500" VerticalAlignment="Top">
+                <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="278" MaxWidth="300" VerticalAlignment="Top">
                     <Calendar x:Name="restaurationCalendar" Language="fr-FR" SelectedDatesChanged="RestaurationCalendar_SelectedDatesChange" Background="#D1D1D1">
                         <Calendar.SelectedDates>
 
@@ -58,7 +58,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name }" FontSize="20"/>
+                            <TextBlock Text="{Binding Name }" FontSize="15"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

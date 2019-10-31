@@ -27,33 +27,29 @@ namespace Resotel.ViewModels.VMReservation
             }
         }
 
-        public LineInvoicesViewModel()
-        { 
-        }
-
         public LineInvoicesViewModel(int id)
         {
-            addCustomersToList(ReservationService.Instance.ChargerLineInvoicesByInvoice(id));
+            addLineInvoicesToList(ReservationService.Instance.ChargerLineInvoicesByInvoice(id));
         }
 
         private void Observer_CurrentChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged("CustomerSelected");
+            OnPropertyChanged("LineInvoiceSelected");
         }
 
-        public void addCustomersToList(List<LineInvoice> listLineInvoices)
+        public void addLineInvoicesToList(List<LineInvoice> listLineInvoices)
         {
             ListLineInvoices = new ObservableCollection<LineInvoiceViewModel>();
             foreach (LineInvoice li in listLineInvoices)
             {
-                addCustomerToList(li);
+                addLineInvoiceToList(li);
             }
             observer = CollectionViewSource.GetDefaultView(ListLineInvoices);
             observer.MoveCurrentToFirst();
             observer.CurrentChanged += Observer_CurrentChanged;
         }
 
-        public void addCustomerToList(LineInvoice li)
+        public void addLineInvoiceToList(LineInvoice li)
         {
             LineInvoiceViewModel lineInvoice = new LineInvoiceViewModel(li);
             ListLineInvoices.Add(lineInvoice);

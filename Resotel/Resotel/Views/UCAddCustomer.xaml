@@ -9,15 +9,15 @@
     <Grid x:Name="addCustomerGrid" Background="White">
         <Grid.Resources>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Height" Value="50"/>

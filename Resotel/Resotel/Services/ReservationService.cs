@@ -398,12 +398,80 @@ namespace Resotel.Services
         public List<Invoice> ChargerAllInvoices()
         {
             List<Invoice> list = new List<Invoice>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT invoice.id, invoice.priceHT, invoice.priceTTC, invoice.state, invoice.date, reservation.number, reservation.date AS dateResa, reservation.dateStart, reservation.dateEnd, customer.lastname, customer.firstname, customer.address, customer.cityCode, customer.city, customer.email, customer.phone FROM invoice JOIN reservation ON invoice.id_Reservation = reservation.id JOIN customer ON reservation.id_Customer = customer.idCustomer";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Invoice invoice = new Invoice
+                {
+                    Id = reader.GetInt32("id"),
+                    PriceHT = reader.GetDouble("priceHT"),
+                    PriceTTC = reader.GetDouble("priceTTC"),
+                    State = reader.GetString("state"),
+                    Date = reader.GetDateTime("date"),
+                    Reservation = new Reservation
+                    {
+                        Number = reader.GetString("number"),
+                        Date = reader.GetDateTime("dateResa"),
+                        DateStart = reader.GetDateTime("dateStart"),
+                        DateEnd = reader.GetDateTime("dateEnd"),
+                        Customer = new Customer
+                        {
+                            Lastname = reader.GetString("lastname"),
+                            Firstname = reader.GetString("firstname"),
+                            Address = reader.GetString("address"),
+                            CityCode = reader.GetString("cityCode"),
+                            City = reader.GetString("city"),
+                            Email = reader.GetString("email"),
+                            Phone = reader.GetString("phone")
+                        }
+                    }
+                };
+
+                list.Add(invoice);
+            }
+
+            CloseConnection();
+
             return list;
         }
 
         public List<LineInvoice> ChargerLineInvoicesByInvoice(int id)
         {
             List<LineInvoice> list = new List<LineInvoice>();
+
+            if (OpenConnection() == false)
+            {
+                return list;
+            }
+
+            string req = "SELECT line_invoice.id, line_invoice.description, line_invoice.pht, line_invoice.tva, line_invoice.pttc FROM line_invoice WHERE id_invoice = @id";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                LineInvoice lineInvoice = new LineInvoice
+                {
+                    Id = reader.GetInt32("id"),
+                    Description = reader.GetString("description"),
+                    Pht = reader.GetDouble("pht"),
+                    Tva = reader.GetDouble("tva"),
+                    Pttc = reader.GetDouble("pttc")
+                };
+
+                list.Add(lineInvoice);
+            }
+
+            CloseConnection();
+
             return list;
         }
 
@@ -636,6 +704,79 @@ namespace Resotel.Services
             CloseConnection();
 
             return true;
+        }
+
+        public bool CreateInvoice(Reservation reservation)
+        {
+            if (OpenConnection() == false) return false;
+
+            string req = "SELECT * FROM invoice WHERE id_Reservation = @id;";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", reservation.Id));
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                return false;
+            }
+            reader.Close();
+
+            req = "INSERT INTO invoice (priceHT, priceTTC, state, date, id_Reservation) VALUES (0, 0, @state, @date, @id)";
+            MySqlCommand mySqlCommand2 = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand2.Parameters.Add(new MySqlParameter("@state", "A payer"));
+            mySqlCommand2.Parameters.Add(new MySqlParameter("@date", DateTime.Now));
+            mySqlCommand2.Parameters.Add(new MySqlParameter("@id", reservation.Id));
+            int res = mySqlCommand2.ExecuteNonQuery();
+            int idInvoice = (int)mySqlCommand2.LastInsertedId;
+
+            foreach (BedroomViewModel bvm in reservation.ListBedroom)
+            {
+                AddLineInvoice("Chambre - " + bvm.Bedroom.Number + " " + bvm.Bedroom.TypeBedroom.Name, bvm.Bedroom.TypeBedroom.Price/1.20, bvm.Bedroom.TypeBedroom.Price, idInvoice);
+            }
+            foreach (OptionViewModel ovm in reservation.ListOptions)
+            {
+                AddLineInvoice("Option - " + ovm.Option.Name, ovm.Option.Price / 1.20, ovm.Option.Price, idInvoice);
+            }
+            foreach (MealViewModel mvm in reservation.ListMeal)
+            {
+                AddLineInvoice("Repas - " + mvm.Meal.Name + "-" + mvm.Meal.Date, mvm.Meal.Price / 1.20, mvm.Meal.Price, idInvoice);
+            }
+
+            double priceHT = 0;
+            double priceTTC = 0;
+
+            req = "SELECT SUM(pht) AS sumpht, SUM(pttc) AS sumpttc FROM line_invoice WHERE id_invoice = @id";
+            MySqlCommand mySqlCommand3 = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand3.Parameters.Add(new MySqlParameter("@id", idInvoice));
+            MySqlDataReader reader2 = mySqlCommand3.ExecuteReader();
+            while (reader2.Read())
+            {
+                priceHT = reader2.GetDouble("sumpht");
+                priceTTC = reader2.GetDouble("sumpttc");
+            }
+            reader2.Close();
+
+            req = "UPDATE invoice SET priceHT = @sumpht , priceTTC = @sumpttc WHERE id = @id;";
+            MySqlCommand mySqlCommand4 = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand4.Parameters.Add(new MySqlParameter("@sumpht", priceHT));
+            mySqlCommand4.Parameters.Add(new MySqlParameter("@sumpttc", priceTTC));
+            mySqlCommand4.Parameters.Add(new MySqlParameter("@id", idInvoice));
+            mySqlCommand4.ExecuteNonQuery();
+
+            CloseConnection();
+
+            return true;
+        }
+
+        public void AddLineInvoice(string description, double pht, double pttc, int id_invoice)
+        {
+            string req = "INSERT INTO line_invoice (description, pht, tva, pttc, id_invoice) VALUES (@description, @pht, @tva, @pttc, @id)";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@description", description));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@pht", pht));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@tva", pttc-pht));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@pttc", pttc));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id", id_invoice));
+            mySqlCommand.ExecuteNonQuery();
         }
 
         public int ChangeBedroomStatus(Bedroom bedroom)

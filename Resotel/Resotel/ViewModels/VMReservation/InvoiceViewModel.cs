@@ -16,62 +16,59 @@ namespace Resotel.ViewModels.VMReservation
         public InvoiceViewModel(Invoice invoice)
         {
             Invoice = invoice;
-            if (Invoice.Id == 0)
-            {
-                LineInvoicesViewModel = new LineInvoicesViewModel();
-            }
-            else
-            {
-                LineInvoicesViewModel = new LineInvoicesViewModel(Invoice.Id);
-            }
         }
 
-        private ICommand commandSave;
-        public ICommand CommandSave
+        public string Name
         {
             get
             {
-                if (commandSave == null)
-                {
-                    commandSave = new RelayCommand((object sender) =>
-                    {
-                        //ReservationService.Instance.SaveCustomer(Customer);
-                        //ClearFields();
-                        //MessageBox.Show("Le client à bien été ajouté", "Message d'information", MessageBoxButton.OK, MessageBoxImage.Information);
-                    },
-                    (object sender) =>
-                    {
-                        //if (string.IsNullOrWhiteSpace(Customer.Lastname) || string.IsNullOrWhiteSpace(Customer.Firstname))
-                        //{
-                        //    return false;
-                        //}
-                        return true;
-                    });
-                }
-
-                return commandSave;
+                return Invoice.Id + " - " + Invoice.Date.Day + "/" + Invoice.Date.Month + "/" + Invoice.Date.Year + " - " + " - " + Invoice.Reservation.Number + Invoice.Reservation.Customer.Lastname + " " + Invoice.Reservation.Customer.Firstname;
             }
         }
 
-        public event EventHandler DelInvoice;
-        private ICommand commandDel;
-        public ICommand CommandDel
+        public string TotalHt
         {
             get
             {
-                if (commandDel == null)
-                {
-                    commandDel = new RelayCommand((object sender) =>
-                    {
-                        //if (Customer.Id > 0)
-                        //    ReservationService.Instance.DelCustomer(Customer);
-                        //DelCustomer?.Invoke(this, EventArgs.Empty);
-                        //MessageBox.Show("Le client à bien été supprimé", "Message d'informationr", MessageBoxButton.OK, MessageBoxImage.Information);
-                    });
-                }
-                return commandDel;
+                return Invoice.PriceHT.ToString("0.00") + " €";
             }
         }
+
+        public string TotalTva
+        {
+            get
+            {
+                return (Invoice.PriceTTC - Invoice.PriceHT).ToString("0.00") + " €";
+            }
+        }
+
+        public string TotalTtc
+        {
+            get
+            {
+                return Invoice.PriceTTC.ToString("0.00") + " €";
+            }
+        }
+
+        //public event EventHandler DelInvoice;
+        //private ICommand commandDel;
+        //public ICommand CommandDel
+        //{
+        //    get
+        //    {
+        //        if (commandDel == null)
+        //        {
+        //            commandDel = new RelayCommand((object sender) =>
+        //            {
+        //                if (Customer.Id > 0)
+        //                    ReservationService.Instance.DelCustomer(Customer);
+        //                DelCustomer?.Invoke(this, EventArgs.Empty);
+        //                MessageBox.Show("Le client à bien été supprimé", "Message d'informationr", MessageBoxButton.OK, MessageBoxImage.Information);
+        //            });
+        //        }
+        //        return commandDel;
+        //    }
+        //}
 
         //private void ClearFields()
         //{
