@@ -779,6 +779,22 @@ namespace Resotel.Services
             mySqlCommand.ExecuteNonQuery();
         }
 
+        public int AddPayment(Payment payment)
+        {
+            if (OpenConnection() == false) return 0;
+
+            string req = "INSERT INTO payment (datePayment, modePayment, id_invoice) VALUES (@datePayment, @modePayment, @id_invoice)";
+            MySqlCommand mySqlCommand = new MySqlCommand(req, mySqlConnection);
+            mySqlCommand.Parameters.Add(new MySqlParameter("@datePayment", DateTime.Now));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@modePayment", payment.Mode));
+            mySqlCommand.Parameters.Add(new MySqlParameter("@id_invoice", payment.Invoice.Id));
+            int res = mySqlCommand.ExecuteNonQuery();
+
+            CloseConnection();
+
+            return payment.Id;
+        }
+
         public int ChangeBedroomStatus(Bedroom bedroom)
         {
             if (OpenConnection() == false) return 0;

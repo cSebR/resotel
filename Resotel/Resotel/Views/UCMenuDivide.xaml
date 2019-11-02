@@ -40,6 +40,9 @@
         <DataTemplate DataType="{x:Type VMReservation:UCListInvoiceViewModel}">
             <Views:UCListInvoice/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VMReservation:UCAddPaymentViewModel}">
+            <Views:UCAddPayment/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.DataContext>
@@ -49,7 +52,7 @@
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="15"/>
             </Style>
         </Grid.Resources>
 
@@ -77,6 +80,7 @@
             </MenuItem>
             <MenuItem Header="_Facturation">
                 <MenuItem Header="_Liste des factures" Command="{Binding ShowListInvoice}" />
+                <MenuItem Header="_Enregistrer un paiement" Command="{Binding ShowAddPayment}" />
             </MenuItem>
             <MenuItem Header="_Deconnexion" Command="{Binding DataContext.CommandDisconnect, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWay}" Background="#721817" />
         </Menu>

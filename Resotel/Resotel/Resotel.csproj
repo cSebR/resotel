@@ -114,10 +114,13 @@
     <Compile Include="ViewModels\VMReservation\MealViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\OptionViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\PaymentsViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\PaymentViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VMReservation\UCAddCustomerViewModel.cs" />
+    <Compile Include="ViewModels\VMReservation\UCAddPaymentViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCAddReservationViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListCustomerViewModel.cs" />
     <Compile Include="ViewModels\VMReservation\UCListInvoiceViewModel.cs" />
@@ -127,6 +130,9 @@
     <Compile Include="ViewModels\VMRestauration\UCRestaurationViewModel.cs" />
     <Compile Include="Views\UCAddCustomer.xaml.cs">
       <DependentUpon>UCAddCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCAddPayment.xaml.cs">
+      <DependentUpon>UCAddPayment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCAddReservation.xaml.cs">
       <DependentUpon>UCAddReservation.xaml</DependentUpon>
@@ -171,6 +177,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\UCAddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCAddPayment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

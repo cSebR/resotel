@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Resotel.Views.UCAddRestauration"
+﻿<UserControl x:Class="Resotel.Views.UCAddPayment"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -57,30 +57,14 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1">
             <TextBlock Text="Reservation" Style="{StaticResource Bold}"  />
-            <ComboBox ItemsSource="{Binding ReservationsViewModel.ListReservations}" DisplayMemberPath="Name" SelectedValue="{Binding ReservationsViewModel.ReservationSelected, Mode=OneWay}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
+            <ComboBox ItemsSource="{Binding InvoicesViewModel.ListInvoices}" DisplayMemberPath="Name" SelectedValue="{Binding InvoicesViewModel.InvoiceSelected, Mode=OneWay}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
         </StackPanel>
-        
+
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="Date" Style="{StaticResource Bold}"  />
-            <DatePicker Name="mealDatePicker" Margin="0 10"/>
+            <TextBlock Text="Mode de paiement" Style="{StaticResource Bold}"  />
+            <ComboBox x:Name="comboBoxModePayment" Margin="0 10" SelectionChanged="ComboBox_SelectionChanged" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="Type Repas" Style="{StaticResource Bold}"  />
-            <ComboBox ItemsSource="{Binding MealsViewModel.ListMeals}" DisplayMemberPath="Name" SelectedValue="{Binding MealsViewModel.MealSelected, Mode=OneWay}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Grid.Column="1">
-            <Button Content="Ajouter repas" Click="AddMealToList" HorizontalAlignment="Left" Margin="0 10" />
-            <ListBox Name="listBoxMeal" ItemsSource="{Binding ListMeals}" MaxHeight="150" Background="Azure">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding NameDate }" FontSize="15"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-
-        <Button Grid.Row="4" Grid.Column="1" Content="Enregistrer" Command="{Binding CommandSave}" Margin="10" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Enregistrer" Command="{Binding CommandAddPayment}" Margin="10" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

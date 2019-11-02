@@ -22,7 +22,7 @@ namespace Resotel.ViewModels.VMReservation
         {
             get
             {
-                return Invoice.Id + " - " + Invoice.Date.Day + "/" + Invoice.Date.Month + "/" + Invoice.Date.Year + " - " + " - " + Invoice.Reservation.Number + Invoice.Reservation.Customer.Lastname + " " + Invoice.Reservation.Customer.Firstname;
+                return Invoice.Id + " - " + Invoice.Date.Day + "/" + Invoice.Date.Month + "/" + Invoice.Date.Year + " - " + " - " + Invoice.Reservation.Number + " - " + Invoice.Reservation.Customer.Lastname + " " + Invoice.Reservation.Customer.Firstname;
             }
         }
 

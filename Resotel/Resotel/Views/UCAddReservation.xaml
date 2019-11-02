@@ -41,17 +41,18 @@
         </Grid.Resources>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -63,7 +64,17 @@
             <TextBox Text="{Binding Reservation.Number}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <TextBlock Text="Date d'arrivée :" />
+            <DatePicker Name="startDatePicker" SelectedDate="{Binding Reservation.DateStart}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="3">
+            <TextBlock Text="Date de depart :" />
+            <DatePicker Name="endDatePicker" SelectedDate="{Binding Reservation.DateEnd}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="Informations du client" Style="{StaticResource Bold}" />
         </StackPanel>
 
@@ -81,7 +92,7 @@
             <TextBlock Text="{Binding CustomersViewModel.CustomerSelected.FirstName}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Grid.Column="0">
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="Adresse :" />
             <TextBlock Text="{Binding CustomersViewModel.CustomerSelected.Customer.Address}" />
         </StackPanel>
@@ -106,34 +117,24 @@
             <TextBlock Text="{Binding CustomersViewModel.CustomerSelected.Customer.Phone}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
-            <TextBlock Text="Détail de la réservation" Style="{StaticResource Bold}"  />
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+            <TextBlock Text="Contenu de la réservation" Style="{StaticResource Bold}"  />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <TextBlock Text="Date d'arrivée :" />
-            <DatePicker Name="startDatePicker" SelectedDate="{Binding Reservation.DateStart}" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Grid.Column="3">
-            <TextBlock Text="Date de depart :" />
-            <DatePicker Name="endDatePicker" SelectedDate="{Binding Reservation.DateEnd}" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2">
+        <StackPanel Grid.Row="2" Grid.Column="2" Grid.RowSpan="6">
             <TextBlock Text="Chambre" Style="{StaticResource Bold}"  />
             <ComboBox Name="bedroomComboBox" ItemsSource="{Binding BedroomsViewModel.ListBedrooms}" DisplayMemberPath="Name" SelectedValue="{Binding BedroomsViewModel.BedroomSelected}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
             <Button Content="Ajouter chambre" Click="AddBedroomToList" HorizontalAlignment="Left" Margin="0 10" />
             <ListBox Name="listBoxBedroom" ItemsSource="{Binding Reservation.ListBedroom}" MaxHeight="200" Background="Azure">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name }" FontSize="20"/>
+                        <TextBlock Text="{Binding Name }" FontSize="15"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="3" Grid.RowSpan="4">
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="6">
             <TextBlock Text="Repas" Style="{StaticResource Bold}"  />
             <DatePicker Name="mealDatePicker" Margin="0 10"/>
             <ComboBox Name="mealComboBox" ItemsSource="{Binding MealsViewModel.ListMeals}" DisplayMemberPath="Name" SelectedValue="{Binding MealsViewModel.MealSelected}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
@@ -141,25 +142,25 @@
             <ListBox Name="listBoxMeal" ItemsSource="{Binding Reservation.ListMeal}" MaxHeight="260" Background="Azure">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding NameDate }" FontSize="20"/>
+                        <TextBlock Text="{Binding NameDate }" FontSize="15"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.Column="2" Grid.RowSpan="2">
+        <StackPanel Grid.Row="2" Grid.Column="4" Grid.RowSpan="6">
             <TextBlock Text="Options" Style="{StaticResource Bold}"  />
             <ComboBox Name="optionComboBox" ItemsSource="{Binding OptionsViewModel.ListOptions}" DisplayMemberPath="Name" SelectedValue="{Binding OptionsViewModel.OptionSelected}" IsSynchronizedWithCurrentItem="True" Margin="0 10" />
             <Button Content="Ajouter option" Click="AddOptionToList" HorizontalAlignment="Left" Margin="0 10" />
             <ListBox Name="listBoxOptions" ItemsSource="{Binding Reservation.ListOptions}" MaxHeight="200" Background="Azure">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name }" FontSize="20"/>
+                        <TextBlock Text="{Binding Name }" FontSize="15"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="3" Command="{Binding CommandSave}" Click="ButtonSave_Click" Margin="10"/>
+        <Button Content="Enregistrer" Grid.Row="7" Grid.Column="4" Command="{Binding CommandSave}" Click="ButtonSave_Click" Margin="10"/>
     </Grid>
 </UserControl>
